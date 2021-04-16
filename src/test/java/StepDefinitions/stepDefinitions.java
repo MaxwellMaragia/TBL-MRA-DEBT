@@ -6,6 +6,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.security.Key;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -190,6 +191,127 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("//a[span='Instalment Agreements']")).click();
         driver.findElement(By.xpath("//a[span='Create Instalment Agreement']")).click();
     }
+
+    @And("^Click on debt management > Create debt management case$")
+    public void click_on_debt_management_create_debt_management_case() throws Throwable {
+        driver.findElement(By.xpath("//a[span='Debt Management']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[15]/ul/li[2]/a")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li/a")).click();
+    }
+
+    @And("^enter \"([^\"]*)\" and click search$")
+    public void enter_something_and_click_search(String strArg1) throws Throwable {
+        WebElement tinSearchInput = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:accountNumber")));
+        tinSearchInput.sendKeys(strArg1);
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@type='submit' and span='Search']"));
+        searchButton.click();
+    }
+
+    @Then("^CREATE DEBT MANAGEMENT CASE window is placed$")
+    public void create_debt_management_case_window_is_placed() throws Throwable {
+        WebElement createCaseTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:DebtManagementCasePanel_header")));
+        Assert.assertEquals("CREATE DEBT MANAGEMENT CASE",createCaseTitle.getText());
+    }
+
+    @Then("^Find Payment To Dishonour page is displayed$")
+    public void find_payment_to_dishonour_page_is_displayed() throws Throwable {
+        WebElement dishonourTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:directorHeader")));
+        Assert.assertEquals("Find Payment To Dishonour",dishonourTitle.getText());
+    }
+
+    @Then("^Dishonoured Payment page is displayed$")
+    public void dishonoured_payment_page_is_displayed() throws Throwable {
+        WebElement dishonourTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("dishonourPayment:PageTitleLabel")));
+        Assert.assertEquals("Dishonoured Payment",dishonourTitle.getText());
+    }
+
+    @When("^the user enters taxtype \"([^\"]*)\" and value of debt \"([^\"]*)\"$")
+    public void the_user_enters_taxtype_something_and_value_of_debt_something(String strArg1, String strArg2) throws Throwable {
+        WebElement addButton = driver.findElement(By.id("DebtManagementCase:TaxTypeTable:btnAddTaxType"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addButton);
+        Thread.sleep(5000);
+        addButton.click();
+
+        WebElement iframe = ten.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
+        driver.switchTo().frame(iframe);
+
+        WebElement taxTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"DebtCaseTaxType:TaxType\"]/div[3]")));
+        taxTypeDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//li[@data-label='"+strArg1+"']")).click();
+
+        String returnType= ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtCaseTaxType:ReturnType"))).getText();
+        Assert.assertFalse(returnType.isEmpty());
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement debtInput = driver.findElement(By.id("DebtCaseTaxType:ValueOfDebt_input"));
+        debtInput.sendKeys(strArg2);
+
+        WebElement okButton = driver.findElement(By.id("DebtCaseTaxType:Ok"));
+        okButton.click();
+    }
+
+    @And("^Click on Accounting > Dishonoured Payment$")
+    public void click_on_accounting_dishonoured_payment() throws Throwable {
+        driver.findElement(By.xpath("//a[span='Taxpayer Accounting']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[span='Dishonoured Payment']")).click();
+    }
+
+    @When("^user enters TIN \"([^\"]*)\" to find dishonour payment details$")
+    public void user_enters_tin_something_to_find_dishonour_payment_details(String strArg1) throws Throwable {
+        WebElement tinSearchInput = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:TIN")));
+        tinSearchInput.sendKeys(strArg1);
+
+        WebElement searchButton = driver.findElement(By.xpath("//button[@type='submit' and span='Search']"));
+        searchButton.click();
+    }
+
+    @And("^selects a dishonored payment from table$")
+    public void selects_a_dishonored_payment_from_table() throws Throwable {
+        WebElement dishonouredPayment = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"SearchForm:resultsDataTable_data\"]/tr[2]")));
+        dishonouredPayment.click();
+
+        WebElement continueButton = driver.findElement(By.xpath("//button[@type='submit' and span='Continue']"));
+        continueButton.click();
+    }
+
+    @When("^user enters Dishonoured Date  and Reason \"([^\"]*)\"$")
+    public void user_enters_dishonoured_date_and_reason_something(String strArg1) throws Throwable {
+        WebElement dishonouredDate = driver.findElement(By.id("dishonourPayment:DishonourDate_input"));
+        dishonouredDate.sendKeys(Keys.ENTER);
+
+        WebElement reasonDropdown = driver.findElement(By.xpath("//*[@id=\"dishonourPayment:Reason\"]/div[3]"));
+        reasonDropdown.click();
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("//li[@data-label='"+strArg1+"']")).click();
+
+        WebElement saveButton = driver.findElement(By.xpath("//button[@type='submit' and span='Save']"));
+        saveButton.click();
+
+    }
+
+    @Then("^Verify message \"([^\"]*)\"$")
+    public void verify_message_something(String Message) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + Message + "')]")));
+        if (successMessage.isDisplayed()) {
+            System.out.println("Success message ('" + Message + "') has been displayed");
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail();
+        }
+    }
+    @When("^the user leaves details blank and clicks submit$")
+    public void the_user_leaves_details_blank_and_clicks_submit() throws Throwable {
+        WebElement submitButton = driver.findElement(By.xpath("//button[@type='submit' and span='Submit']"));
+        submitButton.click();
+    }
+
+
 }
 
 

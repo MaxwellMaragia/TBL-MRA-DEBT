@@ -138,6 +138,7 @@ public class stepDefinitions extends BaseClass  {
     @Then("^User logs out successfully$")
     public void user_logs_out_successfully() throws Throwable {
         driver.findElement(By.id("Logout")).click();
+
     }
 
     //---------------------------------------------------------------------Verify the Process of Assign Audit Case-----------------------------------------------------------------------------------------------//
@@ -183,6 +184,12 @@ public class stepDefinitions extends BaseClass  {
 
     }
 
+    @And("Click on debt management > Installment agreements > Create installment agreement")
+    public void clickOnDebtManagementInstallmentAgreementsCreateInstallmentAgreement() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Debt Management']"))).click();
+        driver.findElement(By.xpath("//a[span='Instalment Agreements']")).click();
+        driver.findElement(By.xpath("//a[span='Create Instalment Agreement']")).click();
+    }
 }
 
 

@@ -6,6 +6,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
+import java.security.Key;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -110,6 +111,52 @@ public class stepDefinitions extends BaseClass  {
 
     }
 
+    public void switchToFrameBackoffice(){
+        WebElement frame = twenty.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
+        driver.switchTo().frame(frame);
+    }
+
+    @Then("Switch to default")
+    public void switchToDefault() {
+        driver.switchTo().defaultContent();
+    }
+
+    @Then("^Verify success message \"([^\"]*)\"$")
+    public void verify_success_message(String Message) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver, 200);
+        WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + Message + "')]")));
+        if (successMessage.isDisplayed()) {
+            System.out.println("Success message ('" + Message + "') has been displayed");
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail();
+        }
+    }
+
+    @Then("^Verify error message \"([^\"]*)\"$")
+    public void verify_error_message(String error) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + error + "')]")));
+        if (errorMessage.isDisplayed()) {
+            //This will scroll the page till the element is found
+            System.out.println("Error message ('" + error + "') has been displayed");
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail();
+        }
+    }
+
+    @Then("^Verify no data is found in table$")
+    public void verify_no_data_is_found_in_table() throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver,30);
+        WebElement noDataXpath = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'No record(s) found.')]")));
+        if (noDataXpath.isDisplayed()) {
+            Assert.assertTrue("No data found in table", true);
+        } else {
+            Assert.assertFalse("Data found in table", false);
+        }
+    }
+
     @Given("^User navigates to the login page$")
     public void user_navigates_to_the_login_page() throws Throwable {
 
@@ -185,10 +232,121 @@ public class stepDefinitions extends BaseClass  {
     }
 
     @And("Click on debt management > Installment agreements > Create installment agreement")
-    public void clickOnDebtManagementInstallmentAgreementsCreateInstallmentAgreement() {
+    public void clickOnDebtManagementInstallmentAgreementsCreateInstallmentAgreement() throws InterruptedException {
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Debt Management']"))).click();
         driver.findElement(By.xpath("//a[span='Instalment Agreements']")).click();
-        driver.findElement(By.xpath("//a[span='Create Instalment Agreement']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[1]/a")).click();
+    }
+
+    @Then("Find taxpayer using tin {string}")
+    public void findTaxpayerUsingTin(String tin) {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:find"))).click();
+        switchToFrameBackoffice();
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:accountNumber"))).sendKeys(tin);
+        driver.findElement(By.id("SearchForm:j_idt21")).click();
+        
+    }
+
+    @Then("Select taxtype under outstanding debt {string}")
+    public void selectTaxtypeUnderOutstandingDebt(String taxtype) throws InterruptedException {
+        Thread.sleep(10000);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:TaxType\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + taxtype + "')]"))).click();
+    }
+
+    @Then("Click add under outstanding debts")
+    public void clickAddUnderOutstandingDebts() throws InterruptedException {
+        Thread.sleep(3500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:outstandingDebtsTable:AddOutstandingDebt"))).click();
+    }
+
+    @Then("Select return type under outstanding debts {string}")
+    public void selectReturnTypeUnderOutstandingDebts(String returnType) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"OutstandingDebt:ReturnType\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + returnType + "')]"))).click();
+        Thread.sleep(1500);
+    }
+
+    @Then("Select period and year under outstanding debts {string}")
+    public void selectPeriodAndYearUnderOutstandingDebts(String period) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"OutstandingDebt:PeriodYear\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + period + "')]"))).click();
+        Thread.sleep(1500);
+    }
+
+    @Then("Enter value of debt as {string}")
+    public void enterValueOfDebtAs(String debt) {
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.id("OutstandingDebt:ValueofDebt_input"))).sendKeys(debt);
+    }
+
+    @Then("Click ok under installment agreements")
+    public void clickOkUnderInstallmentAgreements() {
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.id("OutstandingDebt:Ok"))).click();
+    }
+
+    @Then("Enter number of installments as {string}")
+    public void enterNumberOfInstallmentsAs(String number) throws InterruptedException {
+        Thread.sleep(5000);
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:NumberofInstalments_input"))).sendKeys(number);
+    }
+
+    @Then("Select payment frequency as {string}")
+    public void selectPaymentFrequency(String frequency) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:PaymentFrequency\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + frequency + "')]"))).click();
+        Thread.sleep(1500);
+    }
+
+    @Then("Select first installment due date as today")
+    public void selectFirstInstallmentDueDateAsToday() {
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:FirstInstalmentDueDate_input"))).sendKeys(Keys.ENTER);
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.TAB).perform();
+    }
+
+    @Then("Select reason for installment {string}")
+    public void selectReasonForInstallment(String reason) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:Reason\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + reason + "')]"))).click();
+        Thread.sleep(1500);
+
+    }
+
+    @Then("Select office as {string}")
+    public void selectOfficeAs(String office) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:Office\"]/div[3]"))).click();
+        Thread.sleep(1500);
+//        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + office + "')]"))).click();
+//        Thread.sleep(1500);
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    @Then("Enter notes for agreement")
+    public void enterNotesForAgreement() {
+         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Notes"))).sendKeys("Notes");
+    }
+
+    @Then("Click save to submit installment agreement")
+    public void clickSaveToSubmitInstallmentAgreement() {
+         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Save"))).click();
+    }
+
+
+    @Then("Switch to backoffice frame")
+    public void switchToBackofficeFrame() {
+        switchToFrameBackoffice();
+    }
+
+    @Then("Obtain installment agreement ARN {string}")
+    public void obtainInstallmentAgreementARN(String success) {
+        //Instalment Agreement with reference no IA000000042 has been successfully created.
     }
 }
 

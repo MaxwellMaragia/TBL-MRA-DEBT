@@ -3,12 +3,17 @@ Feature: [SUC:08-03]-Create Debt Management Case
     Given User navigates to the login page
     Then Enters the username "tripsuser" and password "Passw0rd" to login
 
-  @SUC:08-01 @UAT_M8-08-01-01 @UAT_M8-08-01-02
+#    make sure return is logged for user/indv taxtype
+  @SUC:08-01 @UAT_M8-08-01-01 @UAT_M8-08-01-02 @Debt-Officer
   Scenario: UAT_M8-08-01-01-Verify the process of installment agreement-Organization
     And Click on debt management > Create debt management case
-    And enter "C0021739" and click search
+    And enter "V0017590" and click search
     Then CREATE DEBT MANAGEMENT CASE window is placed
-    When the user enters taxtype "Non Resident Tax(NRT)" and value of debt "100"
+    When the user enters taxtype "Non Resident Tax(NRT)" and value of debt "1000000"
+    Then CREATE DEBT MANAGEMENT CASE window is placed
+    When User enters Case Title "testDebt case" and Office "Balaka"
+    Then Verify message "Processing Completed - Reference Number"
+    Then  Verify the ARN number "<ARN>"
 
 
   @SUC:08-01 @UAT_M8-08-01-03

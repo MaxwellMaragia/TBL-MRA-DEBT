@@ -7,7 +7,7 @@ Feature: [SUC:08-03]-Create Debt Management Case
 
   @Write-Off
   @Agent-Appointment
-  @Lien-Imposition
+#  @Lien-Imposition
   @SUC:08-01 @UAT_M8-08-01-01 @UAT_M8-08-01-02
   Scenario: UAT_M8-08-01-01-Verify the process of installment agreement-Organization
     And Click on debt management > Create debt management case

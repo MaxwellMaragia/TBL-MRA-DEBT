@@ -186,7 +186,7 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-        search.sendKeys("*DM/000000939/2021");
+        search.sendKeys("*DM/000000940/2021");
 //        search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
@@ -249,6 +249,47 @@ public class stepDefinitions extends BaseClass  {
         driver.switchTo().frame(frame);
         WebElement DebtCaseSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + strArg1 + "']")));
         Assert.assertTrue(DebtCaseSummary.isDisplayed());
+    }
+
+    @When("user enters Public Office Name{string} Address {string} and Place of Filing {string}")
+    public void userEntersPublicOfficeNameAddressAndPlaceOfFiling(String strArg1, String strArg2, String strArg3) {
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[2]/div/div/tb-input-text/div/div[2]/div/input")).sendKeys(strArg1);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[2]/div/div/tb-input-text-area[1]/div/div[2]/div/textarea")).sendKeys(strArg2);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[2]/div/div/tb-input-text-area[2]/div/div[2]/div/textarea")).sendKeys(strArg3);
+    }
+
+    @When("^user enters Asset Summary Personal Property$")
+    public void user_enters_asset_summary_personal_property(DataTable table) throws Throwable {
+        //Initialize data table
+        List<List<String>> data = table.asLists();
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[1]/div/div[2]/div/input")).sendKeys(data.get(0).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text-area/div/div[2]/div/textarea")).sendKeys(data.get(1).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-png-input-number[1]/div/div[2]/div/span/input")).sendKeys(data.get(2).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-png-input-number[2]/div/div[2]/div/span/input")).sendKeys(data.get(3).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[2]/div/div[2]/div/input")).sendKeys(data.get(4).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[3]/div/div[2]/div/input")).sendKeys(data.get(5).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[2]/div/button[1]")).click();
+    }
+
+    @When("^user enters Asset Summary Real Property$")
+    public void user_enters_asset_summary_real_property(DataTable table) throws Throwable {
+        //Initialize data table
+        List<List<String>> data = table.asLists();
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[1]/div/div[2]/div/input")).sendKeys(data.get(0).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text-area/div/div[2]/div/textarea")).sendKeys(data.get(1).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-png-input-number[1]/div/div[2]/div/span/input")).sendKeys(data.get(2).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-png-input-number[2]/div/div[2]/div/span/input")).sendKeys(data.get(3).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[2]/div/div[2]/div/input")).sendKeys(data.get(4).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[3]/div/div[2]/div/input")).sendKeys(data.get(5).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[2]/div/button[1]")).click();
     }
 
     @When("^user enters Appointment of Agent details$")
@@ -327,6 +368,16 @@ public class stepDefinitions extends BaseClass  {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[1]/div[2]/div/div/div[1]/button[1]"));
         addButton.click();
     }
+    @When("^user clicks add Asset Summary Personal Property$")
+    public void user_clicks_add_asset_summary_personal_property() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[4]/div/div/app-asset-summary/div/div/button[1]"));
+        addButton.click();
+    }
+    @When("^user clicks add Asset Summary Real Property$")
+    public void user_clicks_add_asset_summary_real_property() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[3]/div/div/app-asset-summary/div/div/button[1]"));
+        addButton.click();
+    }
 
     @When("^user enters Enforcement Action \"([^\"]*)\" and Reason \"([^\"]*)\"$")
     public void user_enters_enforcement_action_something_and_reason_something(String strArg1, String strArg2) throws Throwable {
@@ -369,6 +420,18 @@ public class stepDefinitions extends BaseClass  {
     @And("^Appointment of Agent clicks Submit button$")
     public void appointment_of_agent_clicks_submit_button() throws Throwable {
         WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[2]/div/button[2]")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
+    @And("^Lien Imposition clicks Submit button$")
+    public void lien_imposition_clicks_submit_button() throws Throwable {
+        WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[2]/div/button[2]")));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
         Thread.sleep(500);

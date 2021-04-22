@@ -1,7 +1,7 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
   @Debt-Officer @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Debt-Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -30,7 +30,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Write Off Approval By Tax Collector"
 
   @taxCollector @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Tax Collector
     Given Open CRM URL Module as "TaxCollector1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -49,7 +49,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Write Off Approval By Station Manager"
 
   @stationmanager @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Station Manager
     Given Open CRM URL Module as "StationManager1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -68,7 +68,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Write Off Approval By Deputy Commissioner Operations"
 
   @DeputyComOp @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Deputy Commissioner Operations
     Given Open CRM URL Module as "DeputyComOp1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -87,7 +87,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Write Off Approval By Domestic Taxes Commissioner"
 
   @DomTaxCom @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Domestic Taxes Commissioner
     Given Open CRM URL Module as "DomTaxCom1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -106,7 +106,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Write Off Approval By Commissioner General"
 
   @ComGen @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Commissioner General
     Given Open CRM URL Module as "ComGen"
     And Close Popup Window
     And Click on Case management dropdown
@@ -125,7 +125,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Write Off Approved By Commissioner General"
 
   @debtofficer @Write-Off
-  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off
+  Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -DebtOfficer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
     And Click on Case management dropdown

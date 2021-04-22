@@ -1,6 +1,6 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
-  @Debt-Officer @Agent-Appointment
+  @Lien-Imposition
   Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment- Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
@@ -15,22 +15,22 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "New"
     And wait for plan to load "Total Debt:"
     When user enters Enforcement Action "Appointment of Agent" and Reason "Appointment of Agent"
-    And clicks Submit button
-    Then Debt status should be "Appointment of Agent"
-    And wait for plan to load "Appointment of Agent Number"
-    When user clicks add Appointment of Agent
-    Then Debt status should be "Appointment of Agent"
-    And wait for plan to load "Agent Name"
-    When user enters Appointment of Agent details
-      | Agent Name       | testAgent   |
-      | Agent TIN        | P0020804    |
-      | Postal Address   | testAddress |
-      | Physical Address | testAddress |
-    Then switch to frame1
-    And wait for plan to load "Appointment of Agent Number"
-    And Appointment of Agent clicks Submit button
-    Then switch to frame1
-    Then Debt status should be "Pending Agent Approval By Tax Collector"
+#    And clicks Submit button
+#    Then Debt status should be "Appointment of Agent"
+#    And wait for plan to load "Appointment of Agent Number"
+#    When user clicks add Appointment of Agent
+#    Then Debt status should be "Appointment of Agent"
+#    And wait for plan to load "Agent Name"
+#    When user enters Appointment of Agent details
+#      | Agent Name       | testAgent   |
+#      | Agent TIN        | P0020804    |
+#      | Postal Address   | testAddress |
+#      | Physical Address | testAddress |
+#    Then switch to frame1
+#    And wait for plan to load "Appointment of Agent Number"
+#    And Appointment of Agent clicks Submit button
+#    Then switch to frame1
+#    Then Debt status should be "Pending Agent Approval By Tax Collector"
 
   @taxCollector @Agent-Appointment
   Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -TaxCollector

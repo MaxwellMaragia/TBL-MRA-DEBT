@@ -256,8 +256,34 @@ public class stepDefinitions extends BaseClass  {
         //Initialize data table
         List<List<String>> data = table.asLists();
 
-        driver.findElement(By.id(Pro.getProperty("FirstName_ID"))).sendKeys(data.get(0).get(1));
-        driver.findElement(By.id(Pro.getProperty("LastName_ID"))).sendKeys(BaseClass.getRandom(9));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-input-text[1]/div/div[2]/div/input")).sendKeys(data.get(0).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-input-text[2]/div/div[2]/div/input")).sendKeys(data.get(1).get(1));
+
+        WebElement agentTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/label")));
+        agentTypeDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-input-text-area[1]/div/div[2]/div/textarea")).sendKeys(data.get(2).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-input-text-area[2]/div/div[2]/div/textarea")).sendKeys(data.get(3).get(1));
+
+        WebElement dateOfAppointment = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[1]/div/div[2]/div/p-calendar/span/input")));
+        dateOfAppointment.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[1]/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[1]/td[5]/a")).click();
+
+        WebElement expiryDate = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[2]/div/div[2]/div/p-calendar/span/input")));
+        expiryDate.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[2]/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[5]/td[6]/a")).click();
+
+        WebElement appointmentStatus = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/label")));
+        appointmentStatus.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[2]/div/button[1]")).click();
     }
 
     @When("^user enters Tax Type Period  and Debt Amount \"([^\"]*)\"$")
@@ -331,6 +357,18 @@ public class stepDefinitions extends BaseClass  {
     @And("^Writen Off Tax Debt clicks Submit button$")
     public void writen_off_tax_debt_clicks_submit_button() throws Throwable {
         WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[3]/div/button")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
+    @And("^Appointment of Agent clicks Submit button$")
+    public void appointment_of_agent_clicks_submit_button() throws Throwable {
+        WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[2]/div/button[2]")));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
         Thread.sleep(500);

@@ -254,6 +254,22 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[1]/a")).click();
     }
 
+    @And("Click on debt management > Installment agreements > cancel installment agreement")
+    public void clickOnDebtManagementInstallmentAgreementsCancelInstallmentAgreement() throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Debt Management']"))).click();
+        driver.findElement(By.xpath("//a[span='Instalment Agreements']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[3]/a")).click();
+    }
+
+    @And("Click on debt management > Installment agreements > view installment agreement")
+    public void clickOnDebtManagementInstallmentAgreementsViewInstallmentAgreement() throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Debt Management']"))).click();
+        driver.findElement(By.xpath("//a[span='Instalment Agreements']")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[2]/a")).click();
+    }
+
     @Then("Find taxpayer using tin {string}")
     public void findTaxpayerUsingTin(String tin) {
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:find"))).click();
@@ -567,6 +583,57 @@ public class stepDefinitions extends BaseClass  {
     }
 
 
+    @Then("Search for case using tin {string} and agreement number {string}")
+    public void searchForCaseUsingTinAndAgreementNumber(String tin, String number) {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:accountNumber"))).sendKeys(tin);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:agreementNumber"))).sendKeys(number);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:j_idt42"))).click();
+    }
+
+    @Then("Enter cancellation reason {string}")
+    public void enterCancellationReason(String reason) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:CancellationReason\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + reason + "')]"))).click();
+        Thread.sleep(1500);
+    }
+
+    @Then("Enter cancellation date")
+    public void enterCancellationDate() throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:CancellationDate_input"))).sendKeys(Keys.ENTER);
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.TAB);
+        Thread.sleep(1000);
+    }
+
+    @Then("Enter cancellation notes {string}")
+    public void enterCancellationNotes(String notes)throws InterruptedException {
+        Thread.sleep(1000);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:CancellationNotes"))).sendKeys(notes);
+    }
+
+    @Then("Submit cancellation")
+    public void submitCancellation() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Save"))).click();
+    }
+
+    @Then("Cancel cancellation")
+    public void cancelCancellation() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:cancel"))).click();
+    }
+
+    @Then("^user is navigated back to \"([^\"]*)\"$")
+    public void user_is_navigated_back_to_homepage_something(String url) throws Throwable {
+        Thread.sleep(4000);
+        String URL = driver.getCurrentUrl();
+        Assert.assertEquals(url,URL );
+    }
+
+    @Then("Verify view field has correct data {string}")
+    public void verifyViewFieldHasCorrectData(String number) {
+        String current = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:InstalmentAgreementNumber"))).getAttribute("value");
+        Assert.assertTrue("Field has correct data",current.equals(number));
+    }
 }
 
 

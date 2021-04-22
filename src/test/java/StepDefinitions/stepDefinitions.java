@@ -186,7 +186,7 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-        search.sendKeys("*DM/000000915/2021");
+        search.sendKeys("*DM/000000939/2021");
 //        search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
@@ -203,6 +203,13 @@ public class stepDefinitions extends BaseClass  {
         actions.doubleClick(pickCheckBox).perform();
 
         driver.switchTo().defaultContent();
+    }
+
+    @And("^pick the debt case$")
+    public void pick_the_debt_case() throws Throwable {
+        WebElement pickButton = driver.findElement(By.xpath("//*[@id=\"queueitem|NoRelationship|HomePageGrid|tbg.queueitem.HomepageGrid.Pick\"]/span"));
+        Actions actions = new Actions(driver);
+        actions.doubleClick(pickButton).perform();
     }
     @And("^click pick button$")
     public void click_pick_button() throws Throwable {
@@ -237,11 +244,62 @@ public class stepDefinitions extends BaseClass  {
     }
     @And("^wait for plan to load \"([^\"]*)\"$")
     public void wait_for_duplicate_check(String strArg1) throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         WebElement frame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
         driver.switchTo().frame(frame);
         WebElement DebtCaseSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + strArg1 + "']")));
         Assert.assertTrue(DebtCaseSummary.isDisplayed());
+    }
+
+    @When("^user enters Appointment of Agent details$")
+    public void user_enters_appointment_of_agent_details(DataTable table) throws Throwable {
+        //Initialize data table
+        List<List<String>> data = table.asLists();
+
+        driver.findElement(By.id(Pro.getProperty("FirstName_ID"))).sendKeys(data.get(0).get(1));
+        driver.findElement(By.id(Pro.getProperty("LastName_ID"))).sendKeys(BaseClass.getRandom(9));
+    }
+
+    @When("^user enters Tax Type Period  and Debt Amount \"([^\"]*)\"$")
+    public void user_enters_tax_type_period_and_debt_amount_something(String strArg1) throws Throwable {
+        WebElement taxTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/label")));
+        taxTypeDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]/span")).click();
+
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement debtInput = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-png-input-number/div/div[2]/div/span/input"));
+        debtInput.sendKeys(strArg1);
+
+        WebElement periodDropdown= ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/label")));
+        periodDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]/span")).click();
+
+        WebElement okButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[2]/div/button[1]"));
+        okButton.click();
+    }
+
+    @When("^user enters Debt Write-Off Reason")
+    public void user_enters_debt_writeoff_reason() throws Throwable {
+        WebElement reasonDropdown= ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[2]/div/div[2]/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
+        reasonDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[2]/div/div[2]/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]/span")).click();
+
+    }
+
+    @When("^user clicks add Writen Off Tax Debt$")
+    public void user_clicks_add_writen_off_tax_debt() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[2]/div/div[1]/app-tax-debt-list/div/div/button[1]"));
+        addButton.click();
+    }
+
+    @When("^user clicks add Appointment of Agent$")
+    public void user_clicks_add_appointment_of_agent() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[1]/div[2]/div/div/div[1]/button[1]"));
+        addButton.click();
     }
 
     @When("^user enters Enforcement Action \"([^\"]*)\" and Reason \"([^\"]*)\"$")
@@ -261,6 +319,18 @@ public class stepDefinitions extends BaseClass  {
     @And("^clicks Submit button$")
     public void clicks_submit_button() throws Throwable {
         WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[4]/div/div/button")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
+    @And("^Writen Off Tax Debt clicks Submit button$")
+    public void writen_off_tax_debt_clicks_submit_button() throws Throwable {
+        WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[3]/div/button")));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
         Thread.sleep(500);
@@ -338,6 +408,8 @@ public class stepDefinitions extends BaseClass  {
     @Then("^CREATE DEBT MANAGEMENT CASE window is placed$")
     public void create_debt_management_case_window_is_placed() throws Throwable {
         WebElement createCaseTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:DebtManagementCasePanel_header")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", createCaseTitle);
+        Thread.sleep(5000);
         Assert.assertEquals("CREATE DEBT MANAGEMENT CASE",createCaseTitle.getText());
     }
 
@@ -353,8 +425,8 @@ public class stepDefinitions extends BaseClass  {
         Assert.assertEquals("Dishonoured Payment",dishonourTitle.getText());
     }
 
-    @When("^the user enters taxtype \"([^\"]*)\" and value of debt \"([^\"]*)\"$")
-    public void the_user_enters_taxtype_something_and_value_of_debt_something(String strArg1, String strArg2) throws Throwable {
+    @When("^the user enters taxtype \"([^\"]*)\" and value of debt \"([^\"]*)\" return tpe and period \"([^\"]*)\"$")
+    public void the_user_enters_taxtype_something_and_value_of_debt_something_return_tpe_and_period_something(String strArg1, String strArg2, String strArg3) throws Throwable {
         WebElement addButton = driver.findElement(By.id("DebtManagementCase:TaxTypeTable:btnAddTaxType"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addButton);
         Thread.sleep(5000);
@@ -368,12 +440,24 @@ public class stepDefinitions extends BaseClass  {
         Thread.sleep(2000);
         driver.findElement(By.xpath("//li[@data-label='"+strArg1+"']")).click();
 
-        String returnType= ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtCaseTaxType:ReturnType"))).getText();
-        Assert.assertFalse(returnType.isEmpty());
+        Thread.sleep(8000);
+        WebElement returnTypedropdown= driver.findElement(By.xpath("//*[@id=\"DebtCaseTaxType:ReturnType\"]/div[3]"));
+        returnTypedropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("DebtCaseTaxType:ReturnType_1")).click();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebElement debtInput = driver.findElement(By.id("DebtCaseTaxType:ValueOfDebt_input"));
         debtInput.sendKeys(strArg2);
+
+
+        Thread.sleep(8000);
+        WebElement periodDropdown= ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"DebtCaseTaxType:PeriodValue\"]/div[3]")));
+        periodDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//li[@data-label='"+strArg3+"']")).click();
+
+
 
         WebElement okButton = driver.findElement(By.id("DebtCaseTaxType:Ok"));
         okButton.click();

@@ -4,12 +4,13 @@ Feature: [SUC:08-03]-Create Debt Management Case
     Then Enters the username "tripsuser" and password "Passw0rd" to login
 
 #    make sure return is logged for user/indv taxtype
-  @SUC:08-01 @UAT_M8-08-01-01 @UAT_M8-08-01-02 @Debt-Officer
+#  @Agent-Appointment
+  @SUC:08-01 @UAT_M8-08-01-01 @UAT_M8-08-01-02 @Write-Off
   Scenario: UAT_M8-08-01-01-Verify the process of installment agreement-Organization
     And Click on debt management > Create debt management case
-    And enter "V0017590" and click search
+    And enter "P0020797" and click search
     Then CREATE DEBT MANAGEMENT CASE window is placed
-    When the user enters taxtype "Non Resident Tax(NRT)" and value of debt "1000000"
+    When the user enters taxtype "Domestic Excise" and value of debt "1000000" return tpe and period "1/2020"
     Then CREATE DEBT MANAGEMENT CASE window is placed
     When User enters Case Title "testDebt case" and Office "Balaka"
     Then Verify message "Processing Completed - Reference Number"
@@ -21,7 +22,7 @@ Feature: [SUC:08-03]-Create Debt Management Case
     And Click on debt management > Create debt management case
     And enter "C0021739" and click search
     Then CREATE DEBT MANAGEMENT CASE window is placed
-    When the user enters taxtype "Non Resident Tax(NRT)" and value of debt "100"
+    When the user enters taxtype "Domestic Excise" and value of debt "1000000" return tpe and period ""
 
   @SUC:08-01 @UAT_M8-08-01-04
   Scenario: UAT_M8-08-01-01-Verify the process of System creates Debt Management Case

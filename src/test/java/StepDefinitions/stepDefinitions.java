@@ -75,7 +75,7 @@ public class stepDefinitions extends BaseClass  {
 
 
     public static sharedatastep sharedata;
-    public String ReferenceNumber = "IA000000045";
+    public String ReferenceNumber = "IA000000046";
 
     public stepDefinitions(sharedatastep sharedata) {
 
@@ -232,6 +232,19 @@ public class stepDefinitions extends BaseClass  {
         Thread.sleep(3000);
 
     }
+
+    @Then("^Enter Outcome Reason$")
+    public void enter_Outcome_Reason() throws Throwable {
+        Thread.sleep(2000);
+        WebElement specificframe = (driver.findElement(By.id(Pro.getProperty("OutComeReason_Frame_XPATH"))));
+        driver.switchTo().frame(specificframe);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.findElement(By.xpath(Pro.getProperty("NextStage_RefNum_Reject_OutComeReason_XPATH"))).click();
+        WebDriverWait ReasonValue = new WebDriverWait(driver, 60);
+        ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath(Pro.getProperty("NextStage_RefNum_Reject_OutComeReason_Options_XPATH")))).click();
+        Thread.sleep(8000);
+    }
+
 
     @And("Click on debt management > Installment agreements > Create installment agreement")
     public void clickOnDebtManagementInstallmentAgreementsCreateInstallmentAgreement() throws InterruptedException {
@@ -501,6 +514,37 @@ public class stepDefinitions extends BaseClass  {
         driver.switchTo().defaultContent();
     }
 
+    @Then("reject transaction after text {string} loads")
+    public void rejectTransactionAfterTextLoads(String text) throws InterruptedException {
+        onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
+        driver.switchTo().frame("WebResource_DebtManagementApplicationAngular");
+        Thread.sleep(3000);
+
+        WebDriverWait wait = new WebDriverWait(driver, 120);
+        WebElement downloadAttach = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='"+text+"']")));
+        Assert.assertTrue(downloadAttach.isDisplayed());
+
+        driver.switchTo().defaultContent();
+        WebDriverWait wait1 = new WebDriverWait(driver, 30);
+        WebElement specificframe = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.id(Pro.getProperty("NextStage_Frame_ID1"))));
+        driver.switchTo().frame(specificframe);
+        Thread.sleep(5000);
+
+        driver.findElement(By.xpath("//div[@data-attributename='tbg_approvaloutcome']")).click();
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        driver.switchTo().defaultContent();
+    }
+
+    @Then("^Enter Outcome Notes (.+)$")
+    public void enter_outcome_notes(String Notes) throws Throwable {
+        Thread.sleep(3000);
+        Actions action1 = new Actions(driver);
+        WebElement element1 = driver.findElement(By.id((Pro.getProperty("Individual_NextStage_RefNum_Reject_OutComeNotes_ID"))));
+        action1.sendKeys(element1, Notes).build().perform();
+        Thread.sleep(5000);
+    }
+
     @Then("^Click save CRM$")
     public void ClickSaveCRM() throws Throwable {
         driver.switchTo().defaultContent();
@@ -521,6 +565,8 @@ public class stepDefinitions extends BaseClass  {
         }
         Thread.sleep(2000);
     }
+
+
 }
 
 

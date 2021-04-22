@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 import gherkin.lexer.Th;
 import io.cucumber.java.DataTableType;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.math3.analysis.function.Exp;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.Alert;
@@ -74,6 +75,7 @@ public class stepDefinitions extends BaseClass  {
 
 
     public static sharedatastep sharedata;
+    public String ReferenceNumber = "IA000000045";
 
     public stepDefinitions(sharedatastep sharedata) {
 
@@ -346,7 +348,178 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("Obtain installment agreement ARN {string}")
     public void obtainInstallmentAgreementARN(String success) {
-        //Instalment Agreement with reference no IA000000042 has been successfully created.
+        //Instalment Agreement with reference no IA000000042 has been successfully created
+        String FullMessage = twenty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + success + "')]"))).getText();
+
+        ReferenceNumber =FullMessage.substring(39,50);
+        System.out.println("Actual ARN to be used in CRM is " +ReferenceNumber);
+    }
+
+    @Then("Click add under related documents")
+    public void clickAddUnderRelatedDocuments() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:relatedDocTableHandler:AddRelatedDocument"))).click();
+    }
+
+    @Then("Select related document type as {string}")
+    public void selectRelatedDocumentTypeAs(String docType) throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"SearchForm:DocumentType\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + docType + "')]"))).click();
+        Thread.sleep(1500);
+    }
+
+
+    @Then("Click search to search for document")
+    public void clickSearchToSearchForDocument() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:j_idt21"))).click();
+    }
+
+    @Then("Verify data for return document {string} is populated in table")
+    public void verifyDataForReturnDocumentIsPopulatedInTable(String data) {
+        WebElement DataXpath = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'"+data+"')]")));
+        if (DataXpath.isDisplayed()) {
+            Assert.assertTrue("No data found in table", true);
+        } else {
+            Assert.assertFalse("Data found in table", false);
+        }
+    }
+
+    @Then("Click calculate to calculate installment plan")
+    public void clickCalculateToCalculateInstallmentPlan() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:calculate"))).click();
+    }
+
+    @Then("Verify calculation data is populated in table")
+    public void verifyCalculationDataIsPopulatedInTable() {
+        WebElement DataXpath = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'DUE')]")));
+        if (DataXpath.isDisplayed()) {
+            Assert.assertTrue("No data found in table", true);
+        } else {
+            Assert.assertFalse("Data found in table", false);
+        }
+    }
+
+    @Then("Click return document table row")
+    public void clickReturnDocumentTableRow() {
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:relatedDocTableHandler_data\"]/tr/td[1]"))).click();
+    }
+
+    @Then("Click view to view return document")
+    public void clickViewToViewReturnDocument() {
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:relatedDocTableHandler:ViewRelatedDocument"))).click();
+    }
+
+    @Then("Verify return document screen is displayed with readonly fields")
+    public void verifyReturnDocumentScreenIsDisplayedWithReadonlyFields() {
+        WebDriverWait wait = new WebDriverWait(driver,60);
+        WebElement tinfield = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ReturnsLodgement:id_Tin")));
+        String tin = tinfield.getAttribute("value");
+        if(tin.isEmpty() || tinfield.isEnabled()){
+            Assert.fail("Return document does not contain any data or fields are not readonly");
+        }
+        else{
+            Assert.assertTrue("Return document page contains data",!tin.isEmpty());
+        }
+    }
+
+    @Then("Click cancel to return to create installment screen")
+    public void clickCancelToReturnToCreateInstallmentScreen() {
+        five.until(ExpectedConditions.visibilityOfElementLocated(By.id("ReturnsLodgement:Cancel"))).click();
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:InstalmentAgreementNumber"))).isDisplayed();
+    }
+
+    @Then("Remove return document")
+    public void removeReturnDocument() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:relatedDocTableHandler:DeleteRelatedDocument"))).click();
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:relatedDocTableHandler:deleteYesDoc"))).click();
+    }
+
+    @Then("Open CRM and close modal")
+    public void openCRMAndCloseModal() {
+        driver.get(Pro.getProperty("MRA_crm_url_Registration"));
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WebElement specificframe = (driver.findElement(By.id(Pro.getProperty("CRM_ExploreCrmWindow_Frame__ID"))));
+        driver.switchTo().frame(specificframe);
+        WebDriverWait CloseWindow = new WebDriverWait(driver, 60);
+        CloseWindow.until(ExpectedConditions.elementToBeClickable(By.id(Pro.getProperty("CRM_ExploreCrmWindow_Frame_Close_ID")))).click();
+    }
+
+    @Then("Click on debt application link")
+    public void clickOnDebtApplicationLink() throws InterruptedException {
+        thirty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Pro.getProperty("Cases_Management_Dropdown_XPATH")))).click();
+
+        Thread.sleep(2000);
+        driver.findElement(By.id(Pro.getProperty("Debt_Application_ID"))).click();
+    }
+
+    @Then("search for reference number")
+    public void searchForReferenceNumber() throws InterruptedException {
+        WebElement search = twenty.until(ExpectedConditions.visibilityOfElementLocated(By.id("crmGrid_findCriteria")));
+
+        search.clear();
+        Thread.sleep(2000);
+        //search.sendKeys("*AV/000000875/2021");
+        search.sendKeys(ReferenceNumber);
+        Thread.sleep(2000);
+        search.sendKeys(Keys.ENTER);
+
+        Thread.sleep(2000);
+    }
+
+    @Then("^Click on reference number$")
+    public void click_on_reference_number() {
+
+        WebElement elementLocator = driver.findElement(By.xpath(Pro.getProperty("CaseManagement_Queue_Select_ReffNo_XPATH")));
+
+        Actions actions = new Actions(driver);
+        actions.doubleClick(elementLocator).perform();
+
+        driver.switchTo().defaultContent();
+
+    }
+
+    @Then("^approve transaction$")
+    public void approve_transaction() throws Throwable {
+
+        onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
+        driver.switchTo().frame("WebResource_DebtManagementApplicationAngular");
+        Thread.sleep(3000);
+
+        WebDriverWait wait = new WebDriverWait(driver, 120);
+        WebElement downloadAttach = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='Instalment Agreement Number:']")));
+        Assert.assertTrue(downloadAttach.isDisplayed());
+
+        driver.switchTo().defaultContent();
+        WebDriverWait wait1 = new WebDriverWait(driver, 30);
+        WebElement specificframe = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.id(Pro.getProperty("NextStage_Frame_ID1"))));
+        driver.switchTo().frame(specificframe);
+        Thread.sleep(5000);
+
+        driver.findElement(By.xpath("//div[@data-attributename='tbg_approvaloutcome']")).click();
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        driver.switchTo().defaultContent();
+    }
+
+    @Then("^Click save CRM$")
+    public void ClickSaveCRM() throws Throwable {
+        driver.switchTo().defaultContent();
+        driver.findElement(By.id("tbg_debtmanagementapplication|NoRelationship|Form|Mscrm.Form.tbg_debtmanagementapplication.Save")).click();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+    }
+
+    @Then("^Debt installment status should be \"([^\"]*)\"$")
+    public void Verify_status_from_CRM(String Status) throws Throwable {
+
+        WebDriverWait wait = new WebDriverWait(driver,200);
+        WebElement statusLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'" + Status + "')]")));
+
+        if (statusLabel.isDisplayed()) {
+            Assert.assertTrue("Approved", true);
+        } else {
+            Assert.fail("Approval failed");
+        }
+        Thread.sleep(2000);
     }
 }
 

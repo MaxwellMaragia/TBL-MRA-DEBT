@@ -1,7 +1,7 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
   @Debt-Officer @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment- Debt Officer
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment- Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -33,7 +33,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Agent Approval By Tax Collector"
 
   @taxCollector @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -TaxCollector
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment -TaxCollector
     Given Open CRM URL Module as "TaxCollector1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -52,7 +52,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Agent Approval By Station Manager"
 
   @stationmanager @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -StationManager
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment -StationManager
     Given Open CRM URL Module as "StationManager1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -71,7 +71,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Agent Approval By Deputy Commissioner Operations"
 
   @DeputyComOp @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -Deputy Commissioner Operations
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment -Deputy Commissioner Operations
     Given Open CRM URL Module as "DeputyComOp1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -90,7 +90,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Agent Approval By Domestic Taxes Commissioner"
 
   @DomTaxCom @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -Domestic Taxes Commissioner
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment -Domestic Taxes Commissioner
     Given Open CRM URL Module as "DomTaxCom1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -109,7 +109,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Pending Agent Approval By Commissioner General"
 
   @ComGen @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -Commissioner General
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment -Commissioner General
     Given Open CRM URL Module as "ComGen"
     And Close Popup Window
     And Click on Case management dropdown
@@ -128,7 +128,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Agent Approved By Commissioner General"
 
   @debtofficer @Agent-Appointment
-  Scenario: UAT_M8_08-02-03-Verify the Process of Escalated Case - Agent Appointment -Debt Officer
+  Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-Verify the Process of Escalated Case - Agent Appointment -Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
     And Click on Case management dropdown

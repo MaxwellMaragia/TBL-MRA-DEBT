@@ -1,7 +1,7 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
-#  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -Debt Officer
+#  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -9,44 +9,34 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame0
     And enters Debt reference number in search results
     And picks the audit case
-    And click pick button
+   And click pick button
     Then switch to frame0
     Then Click on reference number
     Then Debt status should be "New"
     And wait for plan to load "Total Debt:"
-    When user enters Enforcement Action "Lien Imposition" and Reason "Lien Imposition"
+    When user enters Enforcement Action "Distraint Action" and Reason "Distraint Action"
     And clicks Submit button
-    Then Debt status should be "Lien Imposition"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Distraint Action"
+    And wait for plan to load "Total Tax Debt"
     When user clicks add Asset Summary Personal Property
-    Then Debt status should be "Lien Imposition"
+    When user clicks add Asset Seized
+    Then Debt status should be "Distraint Action"
     And wait for plan to load "Asset Name"
-    When user enters Asset Summary Personal Property
+    When user enters Asset Seized
       | Asset Name          | testName        |
       | Asset Description   | testDescription |
       | Book Value          | 1000            |
       | Market Value        | 1000            |
-      | Registration Number | 11111           |
       | Title Owner         | testOwner       |
-    When user clicks add Asset Summary Real Property
-    Then Debt status should be "Lien Imposition"
-    And wait for plan to load "Asset Name"
-    When user enters Asset Summary Real Property
-      | Asset Name        | testName        |
-      | Asset Description | testDescription |
-      | Book Value        | 1000            |
-      | Market Value      | 1000            |
-      | Plot Number       | 11111           |
-      | Title Owner       | testOwner       |
     Then switch to frame1
-    And wait for plan to load "Total Debt"
-    When user enters Public Office Name"testoffice" Address "testaddress" and Place of Filing "testLocation"
-    And Lien Imposition clicks Submit button
+    And wait for plan to load "Total Tax Debt"
+    When user enters summary cost Costs "1000"
+    And Distraint Action clicks Submit button
     Then switch to frame1
-    Then Debt status should be "Pending Lien Imposition Approval By Tax Collector"
+    Then Debt status should be "Pending Distraint Action Approval By Tax Collector"
 
-  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -TaxCollector
+  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -TaxCollector
     Given Open CRM URL Module as "TaxCollector1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -54,18 +44,18 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame0
     And enters Debt reference number in search results
     And picks the audit case
-#    And pick the debt case
+    And pick the debt case
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Pending Lien Imposition Approval By Tax Collector"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Pending Distraint Action Approval By Tax Collector"
+    And wait for plan to load "Total Tax Debt"
     Then switch to frame1
     And Select Approval outcome value to Approve "taxcollector"
     Then Click on Save button
-    Then Debt status should be "Pending Lien Imposition Approval By Station Manager"
+    Then Debt status should be "Pending Distraint Action Approval By Station Manager"
 
-  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -StationManager
+  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -StationManager
     Given Open CRM URL Module as "StationManager1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -76,15 +66,15 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Pending Lien Imposition Approval By Station Manager"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Pending Distraint Action Approval By Station Manager"
+    And wait for plan to load "Total Tax Debt"
     Then switch to frame1
     And Select Approval outcome value to Approve "stationmanager"
     Then Click on Save button
-    Then Debt status should be "Pending Lien Imposition Approval By Deputy Commissioner Operations"
+    Then Debt status should be "Pending Distraint Action Approval By Deputy Commissioner Operations"
 
-  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -Deputy Commissioner Operations
+  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Deputy Commissioner Operations
     Given Open CRM URL Module as "DeputyComOp1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -95,15 +85,15 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Pending Lien Imposition Approval By Deputy Commissioner Operations"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Pending Distraint Action Approval By Deputy Commissioner Operations"
+    And wait for plan to load "Total Tax Debt"
     Then switch to frame1
     And Select Approval outcome value to Approve "deputycommissioneroperations"
     Then Click on Save button
-    Then Debt status should be "Pending Lien Imposition Approval By Domestic Taxes Commissioner"
+    Then Debt status should be "Pending Distraint Action Approval By Domestic Taxes Commissioner"
 
-  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -Domestic Taxes Commissioner
+  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Domestic Taxes Commissioner
     Given Open CRM URL Module as "DomTaxCom1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -114,15 +104,15 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Pending Lien Imposition Approval By Domestic Taxes Commissioner"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Pending Distraint Action Approval By Domestic Taxes Commissioner"
+    And wait for plan to load "Total Tax Debt"
     Then switch to frame1
     And Select Approval outcome value to Approve "domestictaxescommissioner"
     Then Click on Save button
-    Then Debt status should be "Pending Lien Imposition Approval By Commissioner General"
-
-  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -Commissioner General
+    Then Debt status should be "Pending Distraint Action Approval By Commissioner General"
+#
+  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Commissioner General
     Given Open CRM URL Module as "ComGen"
     And Close Popup Window
     And Click on Case management dropdown
@@ -133,15 +123,15 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Pending Lien Imposition Approval By Commissioner General"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Pending Distraint Action Approval By Commissioner General"
+    And wait for plan to load "Total Tax Debt"
     Then switch to frame1
     And Select Approval outcome value to Approve "commissionergeneral"
     Then Click on Save button
-    Then Debt status should be "Lien Imposition Approved By Commissioner General"
-
-  @Lien-Imposition
-  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-0-Verify the Process of Approval Required -Debt Officer
+    Then Debt status should be "Distraint Action Approved By Commissioner General"
+#
+  @Distraint-Action
+  Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
     And Click on Case management dropdown
@@ -152,10 +142,10 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Lien Imposition Approved By Commissioner General"
-    And wait for plan to load "Lien Number"
+    Then Debt status should be "Distraint Action Approved By Commissioner General"
+    And wait for plan to load "Total Tax Debt"
     Then switch to frame1
-    Then Debt status should be "Lien Imposition Approved By Commissioner General"
+    Then Debt status should be "Distraint Action Approved By Commissioner General"
 
 
 

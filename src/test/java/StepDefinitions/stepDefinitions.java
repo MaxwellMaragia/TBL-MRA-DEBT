@@ -186,8 +186,8 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-        search.sendKeys("*DM/000000940/2021");
-//        search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
+//        search.sendKeys("*DM/000000943/2021");
+        search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
 
@@ -236,7 +236,7 @@ public class stepDefinitions extends BaseClass  {
         driver.switchTo().defaultContent();
         Thread.sleep(3000);
         driver.switchTo().frame("contentIFrame1");
-        WebDriverWait wait = new WebDriverWait(driver,80);
+        WebDriverWait wait = new WebDriverWait(driver,100);
         Thread.sleep(3000);
         String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='"+Status+"']"))).getText();
         Assert.assertEquals(Status,text);
@@ -258,6 +258,24 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[2]/div/div/tb-input-text-area[2]/div/div[2]/div/textarea")).sendKeys(strArg3);
     }
 
+    @When("^user enters summary cost Costs \"([^\"]*)\"$")
+    public void user_enters_summary_cost_costs_something(String strArg1) throws Throwable {
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-distraint-action/div/form/div[1]/div[3]/div[4]/div/app-summary/form/div/div/div/tb-png-input-number[4]/div/div[2]/div/span/input")).sendKeys(strArg1);
+    }
+
+    @When("^user enters Reason for Enforcement Suspension$")
+    public void user_enters_reason_for_enforcement_suspension_something() throws Throwable {
+        WebElement Date = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[1]/div/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/input")));
+        Date.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[1]/div/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[1]/td[6]/a")).click();
+
+        WebElement reasonEnforcementSuspension = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[2]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
+        reasonEnforcementSuspension.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[2]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
+    }
+
     @When("^user enters Asset Summary Personal Property$")
     public void user_enters_asset_summary_personal_property(DataTable table) throws Throwable {
         //Initialize data table
@@ -273,6 +291,32 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[1]/div/div/div/tb-input-text[3]/div/div[2]/div/input")).sendKeys(data.get(5).get(1));
 
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset/div/div/form/div[2]/div/button[1]")).click();
+    }
+
+    @When("^user enters Asset Seized$")
+    public void user_enters_asset_seized(DataTable table) throws Throwable {
+        //Initialize data table
+        List<List<String>> data = table.asLists();
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-input-text[1]/div/div[2]/div/input")).sendKeys(data.get(0).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-input-text[2]/div/div[2]/div/input")).sendKeys(data.get(1).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-png-input-number[1]/div/div[2]/div/span/input")).sendKeys(data.get(2).get(1));
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-png-input-number[2]/div/div[2]/div/span/input")).sendKeys(data.get(3).get(1));
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-input-text[3]/div/div[2]/div/input")).sendKeys(data.get(4).get(1));
+
+        WebElement assetSeized = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
+        assetSeized.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
+
+        WebElement dateofSeizure = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-date-picker/div/div[2]/div/p-calendar/span")));
+        dateofSeizure.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[1]/td[5]/a")).click();
+
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[2]/div/button[1]")).click();
     }
 
     @When("^user enters Asset Summary Real Property$")
@@ -363,6 +407,12 @@ public class stepDefinitions extends BaseClass  {
         addButton.click();
     }
 
+    @When("^user clicks add Tax Debt Collected by Legal$")
+    public void user_clicks_add_tax_debt_collected_by_legal() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-legal-action/div/form/div[3]/div/div/app-tax-debt-list/div/div/button[1]"));
+        addButton.click();
+    }
+
     @When("^user clicks add Appointment of Agent$")
     public void user_clicks_add_appointment_of_agent() throws Throwable {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[1]/div[2]/div/div/div[1]/button[1]"));
@@ -376,6 +426,12 @@ public class stepDefinitions extends BaseClass  {
     @When("^user clicks add Asset Summary Real Property$")
     public void user_clicks_add_asset_summary_real_property() throws Throwable {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[3]/div/div/app-asset-summary/div/div/button[1]"));
+        addButton.click();
+    }
+
+    @When("^user clicks add Asset Seized$")
+    public void user_clicks_add_asset_seized() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-distraint-action/div/form/div[1]/div[3]/div[1]/div/app-asset-seized/div/div/button[1]"));
         addButton.click();
     }
 
@@ -432,6 +488,42 @@ public class stepDefinitions extends BaseClass  {
     @And("^Lien Imposition clicks Submit button$")
     public void lien_imposition_clicks_submit_button() throws Throwable {
         WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[2]/div/button[2]")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
+    @And("^Distraint Action clicks Submit button$")
+    public void distraint_action_clicks_submit_button() throws Throwable {
+        WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-distraint-action/div/form/div[2]/div/div/button[2]")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
+    @And("^Enforcement Suspension clicks Submit button$")
+    public void enforcement_suspension_clicks_submit_button() throws Throwable {
+        WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[3]/div/div/button")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
+    @And("^Legal Action clicks Submit button$")
+    public void legal_action_clicks_submit_button() throws Throwable {
+        WebElement submitButton = onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-legal-action/div/form/div[4]/div/button")));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
         Thread.sleep(500);
@@ -516,7 +608,7 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("^Find Payment To Dishonour page is displayed$")
     public void find_payment_to_dishonour_page_is_displayed() throws Throwable {
-        WebElement dishonourTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:directorHeader")));
+        WebElement dishonourTitle = fifty.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:directorHeader")));
         Assert.assertEquals("Find Payment To Dishonour",dishonourTitle.getText());
     }
 

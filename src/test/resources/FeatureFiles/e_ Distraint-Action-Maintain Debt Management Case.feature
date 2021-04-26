@@ -1,6 +1,6 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
-#  @Distraint-Action
+  @Distraint-Action @Distraint-Action-reject
   Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
@@ -34,6 +34,31 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And Distraint Action clicks Submit button
     Then switch to frame1
     Then Debt status should be "Pending Distraint Action Approval By Tax Collector"
+
+
+  @Distraint-Action-reject
+  Scenario: UAT_M8_08-02-09-Verify the Process of Rejection of Request - Distraint Action -TaxCollector
+    Given Open CRM URL Module as "TaxCollector1"
+    And Close Popup Window
+    And Click on Case management dropdown
+    And click on Queues
+    Then switch to frame0
+    And enters Debt reference number in search results
+    And picks the audit case
+    And pick the debt case
+    Then switch to frame0
+    Then Click on reference number
+    Then Debt status should be "Pending Distraint Action Approval By Tax Collector"
+    And wait for plan to load "Total Tax Debt"
+    Then switch to frame1
+    And Select Reject outcome dropdown value to Approve "taxcollector"
+    Then switch to frame1
+    And enters manager comments "Manager test comment"
+    Then Enter Outcome Notes "Invalid documentation"
+    Then Enter Outcome Reason
+    And Click on Save button
+    Then Debt status should be "Debt Distraint Action Rejected"
+
 
   @Distraint-Action
   Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -TaxCollector

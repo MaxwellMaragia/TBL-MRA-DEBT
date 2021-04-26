@@ -9,6 +9,7 @@ Feature: [SUC:08-03]-Create Debt Management Case
   @Agent-Appointment
   @Lien-Imposition
   @Distraint-Action
+  @Distraint-Action-reject
   @Enforcement-Suspension
   @Legal-Action
   @SUC:08-01 @UAT_M8-08-01-01 @UAT_M8-08-01-02

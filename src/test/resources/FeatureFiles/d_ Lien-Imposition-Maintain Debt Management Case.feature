@@ -1,6 +1,25 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
-#  @Lien-Imposition
+  @Lien-Imposition-cancel
+  Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -Debt Officer
+    Given Open CRM URL Module as "DebtOfficer1"
+    And Close Popup Window
+    And Click on Case management dropdown
+    And click on Queues
+    Then switch to frame0
+    And enters Debt reference number in search results
+    And picks the audit case
+    And click pick button
+    Then switch to frame0
+    Then Click on reference number
+    Then Debt status should be "New"
+    And wait for plan to load "Total Debt:"
+    When user enters Enforcement Action "Cancel Lien" and Reason "Lien Imposition"
+    And clicks Submit button
+    Then switch to frame1
+    Then Debt status should be "Lien Imposition Cancelled"
+
+  @Lien-Imposition
   Scenario: UAT_M8_08-02-04-UAT_M8_08-02-08Verify the Process of Escalated Case -Lien Imposition -Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window

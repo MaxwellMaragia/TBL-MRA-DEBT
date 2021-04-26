@@ -186,7 +186,7 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-//        search.sendKeys("*DM/000000943/2021");
+//        search.sendKeys("*DM/000000931/2021");
         search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
@@ -543,6 +543,26 @@ public class stepDefinitions extends BaseClass  {
 
     }
 
+    @Then("^validation error displayed \"([^\"]*)\"$")
+    public void validation_error_displayed_something(String strArg1) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+
+        WebElement loadFrame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
+        driver.switchTo().frame(loadFrame);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + strArg1 +"']"))).getText();
+        if(text.contains(strArg1))
+        {
+            System.out.println("Text Verified and"+strArg1);
+        }
+        else
+        {
+            System.out.println("Text Not Verfied and failed");
+        }
+        Thread.sleep(2000);
+    }
+
     @And("^Select Approval outcome value to Approve \"([^\"]*)\"$")
     public void select_approval_outcome_value_to_approve_something(String strArg1) throws Throwable {
         String approvalId = "header_process_tbg_"+strArg1+"approval";
@@ -553,6 +573,52 @@ public class stepDefinitions extends BaseClass  {
         action.doubleClick(dropDown).perform();
         action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
     }
+
+    @And("^Select Reject outcome dropdown value to Approve \"([^\"]*)\"$")
+    public void select_reject_outcome_dropdown_value_to_approve_something(String strArg1) throws Throwable {
+        String approvalId = "header_process_tbg_"+strArg1+"approval";
+        WebElement  dropDown=driver.findElement(By.id(approvalId));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        dropDown.click();
+        Actions action = new Actions(driver);
+        action.doubleClick(dropDown).perform();
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    @And("^enters manager comments \"([^\"]*)\"$")
+    public void enters_manager_comments_something(String strArg1) throws Throwable {
+        WebElement managerCommentsInput = driver.findElement(By.id("Manager Comments_label"));
+        managerCommentsInput.click();
+        Thread.sleep(2000);
+
+        WebElement managerCommentsInputBox = driver.findElement(By.id("tbg_managercomments_i"));
+        managerCommentsInputBox.sendKeys(strArg1);
+
+    }
+
+    @Then("^Enter Outcome Notes (.+)$")
+    public void enter_outcome_notes(String Notes) throws Throwable {
+        Thread.sleep(3000);
+        Actions action1 = new Actions(driver);
+        WebElement element1 = driver.findElement(By.id(("Notes_label")));
+        element1.click();
+        Thread.sleep(1000);
+        driver.findElement(By.id("tbg_outcomenotes_i")).sendKeys(Notes);
+        Thread.sleep(5000);
+    }
+
+    @Then("^Enter Outcome Reason$")
+    public void enter_Outcome_Reason() throws Throwable {
+        Thread.sleep(2000);
+        WebElement specificframe = (driver.findElement(By.id(Pro.getProperty("OutComeReason_Frame_ID"))));
+        driver.switchTo().frame(specificframe);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.id("viewoptionReject")).click();
+        WebDriverWait ReasonValue = new WebDriverWait(driver, 60);
+        ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"statuscode_i_reject\"]/option[2]"))).click();
+        Thread.sleep(8000);
+    }
+
 
     @Then("^Click on Save button$")
     public void click_on_Save_button() throws Throwable {

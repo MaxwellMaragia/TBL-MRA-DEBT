@@ -186,7 +186,7 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-//        search.sendKeys("*DM/000000931/2021");
+//        search.sendKeys("*DM/000000953/2021");
         search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
@@ -371,6 +371,65 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[2]/div/button[1]")).click();
     }
 
+    @When("^user enters Last Payment Made payment \"([^\"]*)\" and comment \"([^\"]*)\"$")
+    public void user_enters_last_payment_made_payment_something_and_comment_something(String strArg1, String strArg2) throws Throwable {
+        WebElement taxTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
+        taxTypeDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement lastPaymentMade = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-png-input-number/div/div[2]/div/span/input"));
+        lastPaymentMade.sendKeys(strArg1);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement comments = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-input-text-area/div/div[2]/div/textarea"));
+        comments.sendKeys(strArg2);
+
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement lastSubmittedReturn = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/input"));
+        lastSubmittedReturn.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[2]/td[2]/a")).click();
+
+
+
+        WebElement okButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[2]/div/div/button[1]"));
+        okButton.click();
+    }
+    @When("^user enters Physical Address Visited \"([^\"]*)\"$")
+    public void user_enters_physical_address_visited_something(String strArg1) throws Throwable {
+        WebElement address = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[1]/div/div/div/tb-input-text-area/div/div[2]/div/textarea"));
+        address.sendKeys(strArg1);
+    }
+    @And("^enters Person Contacted \"([^\"]*)\" Relationship \"([^\"]*)\" Name of Liquidator \"([^\"]*)\" Status of Business Asset \"([^\"]*)\" and Mean of Survival \"([^\"]*)\"$")
+    public void enters_person_contacted_something_relationship_something_name_of_liquidator_something_status_of_business_asset_something_and_mean_of_survival_something(String strArg1, String strArg2, String strArg3, String strArg4, String strArg5) throws Throwable {
+        WebElement personContacted = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-input-text[1]/div/div[2]/div/input"));
+        personContacted.sendKeys(strArg1);
+
+        WebElement relationship = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-input-text[2]/div/div[2]/div/input"));
+        relationship.sendKeys(strArg2);
+
+        WebElement BusinessStatusDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/label")));
+        BusinessStatusDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[3]/span")).click();
+
+        WebElement ReasonForClosureDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/label")));
+        ReasonForClosureDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]/span")).click();
+
+        WebElement NameofLiquidator = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-input-text[3]/div/div[2]/div/input"));
+        NameofLiquidator.sendKeys(strArg3);
+
+        WebElement StatusofBusinessAsset = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-input-text[4]/div/div[2]/div/input"));
+        StatusofBusinessAsset.sendKeys(strArg4);
+
+        WebElement MeanofSurvival = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-input-text[5]/div/div[2]/div/input"));
+        MeanofSurvival.sendKeys(strArg5);
+    }
+
     @When("^user enters Tax Type Period  and Debt Amount \"([^\"]*)\"$")
     public void user_enters_tax_type_period_and_debt_amount_something(String strArg1) throws Throwable {
         WebElement taxTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/label")));
@@ -413,6 +472,12 @@ public class stepDefinitions extends BaseClass  {
         addButton.click();
     }
 
+    @When("^user clicks add Verification of Debt$")
+    public void user_clicks_add_verification_of_debt() throws Throwable {
+        WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[1]/div/div/div/div[2]/button[1]"));
+        addButton.click();
+    }
+
     @When("^user clicks add Appointment of Agent$")
     public void user_clicks_add_appointment_of_agent() throws Throwable {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[1]/div[2]/div/div/div[1]/button[1]"));
@@ -449,6 +514,18 @@ public class stepDefinitions extends BaseClass  {
 
     }
 
+    @And("^clicks close case Submit button$")
+    public void clicks_close_case_submit_button() throws Throwable {
+        WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[5]/div/div/button")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", submitButton);
+        Thread.sleep(500);
+        submitButton.click();
+
+        Thread.sleep(500);
+        driver.switchTo().defaultContent();
+    }
+
     @And("^clicks Submit button$")
     public void clicks_submit_button() throws Throwable {
         WebElement submitButton = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[4]/div/div/button")));
@@ -459,6 +536,20 @@ public class stepDefinitions extends BaseClass  {
 
         Thread.sleep(500);
         driver.switchTo().defaultContent();
+    }
+
+    @And("^enters case closure details reason for closure$")
+    public void enters_case_closure_details_reason_for_closure() throws Throwable {
+        WebElement closureReasonDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[4]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
+        closureReasonDropdown.click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[4]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
+    }
+
+    @And("^clicks close case checkbox$")
+    public void clicks_close_case_checkbox() throws Throwable {
+        WebElement checkBox = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[3]/div/div/tb-checkbox/div/div[2]/div/p-checkbox/div/div[2]"));
+        checkBox.click();
     }
 
     @And("^Writen Off Tax Debt clicks Submit button$")
@@ -618,6 +709,7 @@ public class stepDefinitions extends BaseClass  {
         ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"statuscode_i_reject\"]/option[2]"))).click();
         Thread.sleep(8000);
     }
+
 
 
     @Then("^Click on Save button$")

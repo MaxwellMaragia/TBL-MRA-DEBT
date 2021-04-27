@@ -1,6 +1,26 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
-  @Debt-Officer @Agent-Appointment
+  @Agent-Appointment-close
+  Scenario: UAT_M8_08-02-12-Verify the Process of Close Debt Management Case - Agent Appointment- Debt Officer
+    Given Open CRM URL Module as "DebtOfficer1"
+    And Close Popup Window
+    And Click on Case management dropdown
+    And click on Queues
+    Then switch to frame0
+    And enters Debt reference number in search results
+    And picks the audit case
+    And click pick button
+    Then switch to frame0
+    Then Click on reference number
+    Then Debt status should be "New"
+    And wait for plan to load "Total Debt:"
+    When user enters Enforcement Action "Appointment of Agent" and Reason "Appointment of Agent"
+    And clicks close case checkbox
+    And enters case closure details reason for closure
+    And clicks close case Submit button
+    Then Debt status should be "closed"
+
+  @Agent-Appointment
   Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-UAT_M8_08-02-17-UAT_M8_08-02-18-Verify the Process of Escalated Case - Agent Appointment- Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window

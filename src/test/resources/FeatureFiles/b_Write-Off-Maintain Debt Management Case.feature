@@ -14,6 +14,10 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Click on reference number
     Then Debt status should be "New"
     And wait for plan to load "Total Debt:"
+<<<<<<< HEAD
+=======
+    When user enters Enforcement Action " " and Reason " "
+>>>>>>> c333e8b9729a484500d3ae108f2a54321acaedb1
     And clicks Submit button
     Then switch to frame1
     Then validation error displayed " This field can not be empty. "
@@ -35,7 +39,11 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     When user enters Enforcement Action "Debt Write Off" and Reason "Debt Write-Off"
     And clicks Submit button
     Then Debt status should be "Escalated - Write Off"
+<<<<<<< HEAD
     And wait for plan to load "Total Debt to be Written Off"
+=======
+    And wait for plan to load "Total Written Off Tax Debt"
+>>>>>>> c333e8b9729a484500d3ae108f2a54321acaedb1
     When user clicks add Writen Off Tax Debt
     Then Debt status should be "Escalated - Write Off"
     And wait for plan to load "Tax Type"

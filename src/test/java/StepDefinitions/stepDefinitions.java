@@ -234,7 +234,7 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-//        search.sendKeys("*DM/000001705/2021");
+//        search.sendKeys("*DM/000000953/2021");
         search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
@@ -736,16 +736,6 @@ public class stepDefinitions extends BaseClass  {
 
     }
 
-//    @Then("^Enter Outcome Notes (.+)$")
-//    public void enter_outcome_notes(String Notes) throws Throwable {
-//        Thread.sleep(3000);
-//        Actions action1 = new Actions(driver);
-//        WebElement element1 = driver.findElement(By.id(("Notes_label")));
-//        element1.click();
-//        Thread.sleep(1000);
-//        driver.findElement(By.id("tbg_outcomenotes_i")).sendKeys(Notes);
-//        Thread.sleep(5000);
-//    }
 
     @Then("^Enter Outcome Reason$")
     public void enter_Outcome_Reason() throws Throwable {
@@ -758,17 +748,7 @@ public class stepDefinitions extends BaseClass  {
         ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"statuscode_i_reject\"]/option[2]"))).click();
 
     }
-//    @Then("^Enter Outcome Reason$")
-//    public void enter_Outcome_Reason() throws Throwable {
-//        Thread.sleep(2000);
-//        WebElement specificframe = (driver.findElement(By.id(Pro.getProperty("OutComeReason_Frame_XPATH"))));
-//        driver.switchTo().frame(specificframe);
-//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-//        driver.findElement(By.xpath(Pro.getProperty("NextStage_RefNum_Reject_OutComeReason_XPATH"))).click();
-//        WebDriverWait ReasonValue = new WebDriverWait(driver, 60);
-//        ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath(Pro.getProperty("NextStage_RefNum_Reject_OutComeReason_Options_XPATH")))).click();
-//        Thread.sleep(8000);
-//    }
+
 
 
     @Then("^Click on Save button$")
@@ -812,6 +792,16 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("//a[span='Instalment Agreements']")).click();
         Thread.sleep(1000);
         driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[2]/a")).click();
+    }
+
+
+
+
+
+    @Then("^Click reporting > reports$")
+    public void goToReportingScreen() throws Throwable {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Reporting']"))).click();
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Reports']"))).click();
     }
 
     @Then("Find taxpayer using tin {string}")
@@ -1039,10 +1029,11 @@ public class stepDefinitions extends BaseClass  {
         Thread.sleep(2000);
     }
 
+
 //    @Then("^Click on reference number$")
 //    public void click_on_reference_number() {
 //
-//        WebElement elementLocator = driver.findElement(By.xpath(Pro.getProperty("CaseManagemenClick on reference numbert_Queue_Select_ReffNo_XPATH")));
+//        WebElement elementLocator = driver.findElement(By.xpath(Pro.getProperty("CaseManagement_Queue_Select_ReffNo_XPATH")));
 //
 //        Actions actions = new Actions(driver);
 //        actions.doubleClick(elementLocator).perform();
@@ -1050,6 +1041,7 @@ public class stepDefinitions extends BaseClass  {
 //        driver.switchTo().defaultContent();
 //
 //    }
+
 
     @Then("^approve transaction$")
     public void approve_transaction() throws Throwable {
@@ -1177,6 +1169,91 @@ public class stepDefinitions extends BaseClass  {
     public void verifyViewFieldHasCorrectData(String number) {
         String current = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:InstalmentAgreementNumber"))).getAttribute("value");
         Assert.assertTrue("Field has correct data",current.equals(number));
+
+    }
+
+
+    @Then("^Select report to print \"([^\"]*)\"$")
+    public void select_report_to_print(String reportType) {
+        twenty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='" + reportType + "']"))).click();
+
+    }
+
+    @Then("^Select report file type \"([^\"]*)\"$")
+    public void select_report_file_type(String reportFormat) throws Throwable {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"frmReportDetails:ReportFormat\"]/div[3]"))).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//li[contains(text(),'" + reportFormat + "')]")).click();
+    }
+
+    @Then("^Select tax office \"([^\"]*)\"$")
+    public void select_tax_office(String taxOffice) throws Throwable {
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"frmReportDetails:TAX_OFFICE\"]/div[3]")).click();
+        Thread.sleep(1000);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    @Then("^Select return type$")
+    public void select_return_type() throws Throwable {
+
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"frmReportDetails:TAX_TYPE\"]/div[3]"))).click();
+        Thread.sleep(1000);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    public boolean isFileDownloaded(String downloadPath, String fileName) {
+        File dir = new File(downloadPath);
+        File[] dirContents = dir.listFiles();
+        for (int i = 0; i < dirContents.length; i++) {
+            if (dirContents[i].getName().equals(fileName)) {
+                // File has been found, it can now be deleted:
+                dirContents[i].delete();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Then("^Verify file \"([^\"]*)\" has been downloaded in downloads directory \"([^\"]*)\"$")
+    public void verify_file_has_been_downloaded_in_downloads_directory(String fileName, String downloadPath) throws Throwable {
+        Thread.sleep(10000);
+        if (isFileDownloaded(downloadPath, fileName)) {
+            System.out.println(fileName + ": has been downloaded");
+            Assert.assertTrue(true);
+        } else {
+            Assert.assertFalse(fileName + ": has not been downloaded", false);
+        }
+    }
+
+    @Then("^Click run report \"([^\"]*)\"$")
+    public void click_run_report(String buttonID) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonID))).click();
+    }
+
+    @Then("Select ending date as today")
+    public void selectEndingDateAsToday() throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("frmReportDetails:EndDate_input"))).sendKeys(Keys.ENTER);
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.TAB);
+        Thread.sleep(1000);
+    }
+
+    @Then("Select business sector")
+    public void selectBusinessSector() throws InterruptedException {
+        twenty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"frmReportDetails:BUSINESS_SECTOR\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    @Then("Click cancel to abandon report")
+    public void clickCancelToAbandonReport() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("frmReportDetails:btnCancel"))).click();
     }
 
     @And("^Click on debt management > Create debt management case$")
@@ -1200,6 +1277,7 @@ public class stepDefinitions extends BaseClass  {
     @Then("^CREATE DEBT MANAGEMENT CASE window is placed$")
     public void create_debt_management_case_window_is_placed() throws Throwable {
         WebElement createCaseTitle = twentyfive.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:DebtManagementCasePanel_header")));
+
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", createCaseTitle);
         Thread.sleep(5000);
         Assert.assertEquals("CREATE DEBT MANAGEMENT CASE",createCaseTitle.getText());
@@ -1347,7 +1425,6 @@ public class stepDefinitions extends BaseClass  {
         WebElement submitButton = driver.findElement(By.xpath("//button[@type='submit' and span='Submit']"));
         submitButton.click();
     }
-
 
 }
 

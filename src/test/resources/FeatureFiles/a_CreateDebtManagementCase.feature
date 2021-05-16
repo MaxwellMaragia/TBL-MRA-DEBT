@@ -50,7 +50,7 @@ Feature: [SUC:08-03]-Create Debt Management Case
     Then CREATE DEBT MANAGEMENT CASE window is placed
     When the user leaves details blank and clicks submit
     Then Verify message "Validation Error: Value is required"
-    When the user enters taxtype "Non Resident Tax(NRT)" and value of debt " "
+#    When the user enters taxtype "Non Resident Tax(NRT)" and value of debt " "
     Then Verify message "Validation Error: Value is required"
 
 

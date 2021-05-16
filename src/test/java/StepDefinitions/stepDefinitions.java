@@ -234,7 +234,7 @@ public class stepDefinitions extends BaseClass  {
 
         search.clear();
         Thread.sleep(2000);
-//        search.sendKeys("*DM/000000953/2021");
+//        search.sendKeys("*DM/000001705/2021");
         search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
@@ -269,15 +269,15 @@ public class stepDefinitions extends BaseClass  {
         pickButton.click();
     }
 
-//    @Then("^Click on reference number$")
-//    public void click_on_reference_number() {
-//        WebElement elementLocator = driver.findElement(By.xpath("//*[@id=\"gridBodyTable\"]/tbody/tr/td[1]"));
-//
-//        Actions actions = new Actions(driver);
-//        actions.doubleClick(elementLocator).perform();
-//
-//        driver.switchTo().defaultContent();
-//    }
+    @Then("^Click on reference number$")
+    public void click_on_reference_number() {
+        WebElement elementLocator = driver.findElement(By.xpath("//*[@id=\"gridBodyTable\"]/tbody/tr/td[1]"));
+
+        Actions actions = new Actions(driver);
+        actions.doubleClick(elementLocator).perform();
+
+        driver.switchTo().defaultContent();
+    }
 
     @Then("^Debt status should be \"([^\"]*)\"$")
     public void application_account_adjustment_status_should_be_something(String Status) throws Throwable {
@@ -404,7 +404,8 @@ public class stepDefinitions extends BaseClass  {
         WebElement dateOfAppointment = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[1]/div/div[2]/div/p-calendar/span/input")));
         dateOfAppointment.click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[1]/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[1]/td[5]/a")).click();
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[1]/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[1]/td[7]/a")).click();
+
 
         WebElement expiryDate = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-details/div/div/form/div/div[1]/div/div/tb-date-picker[2]/div/div[2]/div/p-calendar/span/input")));
         expiryDate.click();
@@ -1038,17 +1039,17 @@ public class stepDefinitions extends BaseClass  {
         Thread.sleep(2000);
     }
 
-    @Then("^Click on reference number$")
-    public void click_on_reference_number() {
-
-        WebElement elementLocator = driver.findElement(By.xpath(Pro.getProperty("CaseManagement_Queue_Select_ReffNo_XPATH")));
-
-        Actions actions = new Actions(driver);
-        actions.doubleClick(elementLocator).perform();
-
-        driver.switchTo().defaultContent();
-
-    }
+//    @Then("^Click on reference number$")
+//    public void click_on_reference_number() {
+//
+//        WebElement elementLocator = driver.findElement(By.xpath(Pro.getProperty("CaseManagemenClick on reference numbert_Queue_Select_ReffNo_XPATH")));
+//
+//        Actions actions = new Actions(driver);
+//        actions.doubleClick(elementLocator).perform();
+//
+//        driver.switchTo().defaultContent();
+//
+//    }
 
     @Then("^approve transaction$")
     public void approve_transaction() throws Throwable {
@@ -1198,7 +1199,7 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("^CREATE DEBT MANAGEMENT CASE window is placed$")
     public void create_debt_management_case_window_is_placed() throws Throwable {
-        WebElement createCaseTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:DebtManagementCasePanel_header")));
+        WebElement createCaseTitle = twentyfive.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:DebtManagementCasePanel_header")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", createCaseTitle);
         Thread.sleep(5000);
         Assert.assertEquals("CREATE DEBT MANAGEMENT CASE",createCaseTitle.getText());
@@ -1223,7 +1224,7 @@ public class stepDefinitions extends BaseClass  {
         Thread.sleep(5000);
         addButton.click();
 
-        WebElement iframe = ten.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
+        WebElement iframe = twentyfive.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
         driver.switchTo().frame(iframe);
 
         WebElement taxTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"DebtCaseTaxType:TaxType\"]/div[3]")));

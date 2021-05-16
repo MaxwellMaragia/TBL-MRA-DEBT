@@ -1,6 +1,6 @@
 Feature: [SUC:08-02] Maintain Debt Management Case
 
-#  @Enforcement-Suspension
+  @Enforcement-Suspension
   Scenario: UAT_M8_08-02-06-Verify the Process of Escalated Case -Enforcement Suspension -Debt Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
@@ -23,7 +23,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame1
     Then Debt status should be "Pending Enforcement Suspension Approval By Tax Collector"
 
-#  @Enforcement-Suspension
+  @Enforcement-Suspension
   Scenario: UAT_M8_08-02-06-Verify the Process of Escalated Case -Enforcement Suspension  -TaxCollector
     Given Open CRM URL Module as "TaxCollector1"
     And Close Popup Window
@@ -42,7 +42,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Click on Save button
     Then Debt status should be "Pending Enforcement Suspension Approval By Station Manager"
 
-  #@Enforcement-Suspension
+  @Enforcement-Suspension
   Scenario: UAT_M8_08-02-06-Verify the Process of Escalated Case -Enforcement Suspension  -StationManager
     Given Open CRM URL Module as "StationManager1"
     And Close Popup Window

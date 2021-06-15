@@ -153,7 +153,7 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
   @SUC:08-03 @UAT_M8-08-03-05
   Scenario: UAT_M8-08-03-05-Verify the process taxpayer not found
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "P0020797"
+    Then Find taxpayer using tin "P0020677797"
     Then Verify no data is found in table
 
   @SUC:08-03 @UAT_M8-08-03-07

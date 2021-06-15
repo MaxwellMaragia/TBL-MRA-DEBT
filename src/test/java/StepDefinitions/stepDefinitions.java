@@ -270,6 +270,12 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li[2]/a")).click();
     }
 
+    @Then("^Click reporting > reports$")
+    public void goToReportingScreen() throws Throwable {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Reporting']"))).click();
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[span='Reports']"))).click();
+    }
+
     @Then("Find taxpayer using tin {string}")
     public void findTaxpayerUsingTin(String tin) {
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:find"))).click();
@@ -633,6 +639,89 @@ public class stepDefinitions extends BaseClass  {
     public void verifyViewFieldHasCorrectData(String number) {
         String current = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:InstalmentAgreementNumber"))).getAttribute("value");
         Assert.assertTrue("Field has correct data",current.equals(number));
+    }
+
+    @Then("^Select report to print \"([^\"]*)\"$")
+    public void select_report_to_print(String reportType) {
+        twenty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='" + reportType + "']"))).click();
+
+    }
+
+    @Then("^Select report file type \"([^\"]*)\"$")
+    public void select_report_file_type(String reportFormat) throws Throwable {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"frmReportDetails:ReportFormat\"]/div[3]"))).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//li[contains(text(),'" + reportFormat + "')]")).click();
+    }
+
+    @Then("^Select tax office \"([^\"]*)\"$")
+    public void select_tax_office(String taxOffice) throws Throwable {
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"frmReportDetails:TAX_OFFICE\"]/div[3]")).click();
+        Thread.sleep(1000);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    @Then("^Select return type$")
+    public void select_return_type() throws Throwable {
+
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"frmReportDetails:TAX_TYPE\"]/div[3]"))).click();
+        Thread.sleep(1000);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    public boolean isFileDownloaded(String downloadPath, String fileName) {
+        File dir = new File(downloadPath);
+        File[] dirContents = dir.listFiles();
+        for (int i = 0; i < dirContents.length; i++) {
+            if (dirContents[i].getName().equals(fileName)) {
+                // File has been found, it can now be deleted:
+                dirContents[i].delete();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Then("^Verify file \"([^\"]*)\" has been downloaded in downloads directory \"([^\"]*)\"$")
+    public void verify_file_has_been_downloaded_in_downloads_directory(String fileName, String downloadPath) throws Throwable {
+        Thread.sleep(10000);
+        if (isFileDownloaded(downloadPath, fileName)) {
+            System.out.println(fileName + ": has been downloaded");
+            Assert.assertTrue(true);
+        } else {
+            Assert.assertFalse(fileName + ": has not been downloaded", false);
+        }
+    }
+
+    @Then("^Click run report \"([^\"]*)\"$")
+    public void click_run_report(String buttonID) throws Throwable {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(buttonID))).click();
+    }
+
+    @Then("Select ending date as today")
+    public void selectEndingDateAsToday() throws InterruptedException {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("frmReportDetails:EndDate_input"))).sendKeys(Keys.ENTER);
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.TAB);
+        Thread.sleep(1000);
+    }
+
+    @Then("Select business sector")
+    public void selectBusinessSector() throws InterruptedException {
+        twenty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"frmReportDetails:BUSINESS_SECTOR\"]/div[3]"))).click();
+        Thread.sleep(1500);
+        Actions action = new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+    }
+
+    @Then("Click cancel to abandon report")
+    public void clickCancelToAbandonReport() {
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("frmReportDetails:btnCancel"))).click();
     }
 }
 

@@ -21,14 +21,12 @@ public class BaseClass {
 	public static WebDriver driver;
 	public static Properties prop;
 
-
-	
 	public static WebDriver getDriver() throws IOException
 	{
 		prop = new Properties();
 		FileInputStream fls = new FileInputStream("src\\test\\resources\\global.properties");
 		prop.load(fls);
-		
+
 		System.setProperty("webdriver.chrome.driver", "Browsers\\chromedriver_89.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();

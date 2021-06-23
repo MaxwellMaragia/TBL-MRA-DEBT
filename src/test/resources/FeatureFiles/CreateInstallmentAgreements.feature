@@ -3,16 +3,16 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     Given User navigates to the login page
     Then Enters the username "tripsuser" and password "Passw0rd" to login
 
-  @SUC:08-03 @SUC:08-04 @UAT_M8-08-03-01 @UAT_M8-08-03-02 @UAT_M8-08-03-06 @UAT_M8-08-04-01 @UAT_M8-08-04-02
+  @SUC:08-03 @SUC:08-04 @UAT_M8-08-03-01 @UAT_M8-08-03-02 @UAT_M8-08-03-06 @UAT_M8-08-04-01 @UAT_M8-08-04-02 @backoffice
   Scenario: UAT_M8-08-03-02-Verify the process of add related documents-Verify the process of installment agreement-Organization
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "P0020797"
+    Then Find taxpayer using tin "C0022970"
     Then Switch to default
     Then Select taxtype under outstanding debt "PAYE"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
     Then Select return type under outstanding debts "PAYE Return"
-    Then Select period and year under outstanding debts "3/2020"
+    Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
     Then Switch to default
@@ -44,16 +44,16 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     Then switch to frame1
     Then Debt installment status should be "Approved"
 
-  @SUC:08-03 @UAT_M8-08-03-03
+  @SUC:08-03 @UAT_M8-08-03-03 @backoffice
   Scenario: UAT_M8-08-03-03-Verify the process of installment agreement-Individual
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "P0020797"
+    Then Find taxpayer using tin "C0022970"
     Then Switch to default
     Then Select taxtype under outstanding debt "PAYE"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
     Then Select return type under outstanding debts "PAYE Return"
-    Then Select period and year under outstanding debts "3/2020"
+    Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
     Then Switch to default
@@ -85,16 +85,16 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     Then switch to frame1
     Then Debt installment status should be "Approved"
 
-  @SUC:08-04 @UAT_M8-08-04-03
+  @SUC:08-04 @UAT_M8-08-04-03 @backoffice
   Scenario: UAT_M8-08-03-03-Verify the process of Reject installment agreement
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "P0020797"
+    Then Find taxpayer using tin "C0022970"
     Then Switch to default
     Then Select taxtype under outstanding debt "PAYE"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
     Then Select return type under outstanding debts "PAYE Return"
-    Then Select period and year under outstanding debts "3/2020"
+    Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
     Then Switch to default
@@ -129,16 +129,16 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     Then switch to frame1
     Then Debt installment status should be "Rejected"
 
-  @SUC:08-03 @UAT_M8-08-03-04
+  @SUC:08-03 @UAT_M8-08-03-04 @backoffice
   Scenario: UAT_M8-08-03-04-Verify the process of validation errors
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "P0020797"
+    Then Find taxpayer using tin "C0022970"
     Then Switch to default
     Then Select taxtype under outstanding debt "PAYE"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
     Then Select return type under outstanding debts "PAYE Return"
-    Then Select period and year under outstanding debts "7/2020"
+    Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
     Then Switch to default
@@ -150,22 +150,22 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     Then Verify error message "Office: Validation Error: Value is required."
     Then Verify error message "Notes: Validation Error: Value is required."
 
-  @SUC:08-03 @UAT_M8-08-03-05
+  @SUC:08-03 @UAT_M8-08-03-05 @backoffice
   Scenario: UAT_M8-08-03-05-Verify the process taxpayer not found
     And Click on debt management > Installment agreements > Create installment agreement
     Then Find taxpayer using tin "P0020677797"
     Then Verify no data is found in table
 
-  @SUC:08-03 @UAT_M8-08-03-07
+  @SUC:08-03 @UAT_M8-08-03-07 @backoffice
   Scenario: UAT_M8-08-03-07-Verify the process of view related documents
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "P0020797"
+    Then Find taxpayer using tin "C0022970"
     Then Switch to default
     Then Select taxtype under outstanding debt "PAYE"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
     Then Select return type under outstanding debts "PAYE Return"
-    Then Select period and year under outstanding debts "3/2020"
+    Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
     Then Switch to default
@@ -183,6 +183,7 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     Then Verify data for return document "PAYE Tax Return" is populated in table
     Then Click return document table row
     Then Click view to view return document
+    #depending on taxtype check if it goes to lodge or file
     Then Verify return document screen is displayed with readonly fields
     Then Click cancel to return to create installment screen
     Then Remove return document

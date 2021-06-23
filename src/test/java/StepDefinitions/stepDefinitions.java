@@ -45,15 +45,13 @@ import io.cucumber.java.en.When;
 import io.cucumber.junit.Cucumber;
 
 
-
-
 @RunWith(Cucumber.class)
-public class stepDefinitions extends BaseClass  {
+public class stepDefinitions extends BaseClass {
     public Properties Pro;
     public WebDriverWait five;
-    public WebDriverWait ten ;
+    public WebDriverWait ten;
     public WebDriverWait fifteen;
-    public WebDriverWait twenty ;
+    public WebDriverWait twenty;
     public WebDriverWait twentyfive;
     public WebDriverWait thirty;
     public WebDriverWait thirtyfive;
@@ -71,7 +69,6 @@ public class stepDefinitions extends BaseClass  {
     public WebDriverWait ninetyfive;
     public WebDriverWait onehundred;
     public WebDriverWait twohundred;
-
 
 
     public static sharedatastep sharedata;
@@ -113,7 +110,7 @@ public class stepDefinitions extends BaseClass  {
 
     }
 
-    public void switchToFrameBackoffice(){
+    public void switchToFrameBackoffice() {
         WebElement frame = twenty.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("iframe")));
         driver.switchTo().frame(frame);
     }
@@ -150,7 +147,7 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("^Verify no data is found in table$")
     public void verify_no_data_is_found_in_table() throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver,30);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         WebElement noDataXpath = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'No record(s) found.')]")));
         if (noDataXpath.isDisplayed()) {
             Assert.assertTrue("No data found in table", true);
@@ -235,7 +232,7 @@ public class stepDefinitions extends BaseClass  {
         search.clear();
         Thread.sleep(2000);
 //        search.sendKeys("*DM/000000953/2021");
-        search.sendKeys("*"+sharedatastep.DEBT_ARN_ORG);
+        search.sendKeys("*" + sharedatastep.DEBT_ARN_ORG);
         Thread.sleep(2000);
         search.sendKeys(Keys.ENTER);
 
@@ -259,6 +256,7 @@ public class stepDefinitions extends BaseClass  {
         Actions actions = new Actions(driver);
         actions.doubleClick(pickButton).perform();
     }
+
     @And("^click pick button$")
     public void click_pick_button() throws Throwable {
         WebDriverWait wait = new WebDriverWait(driver, 20);
@@ -284,15 +282,16 @@ public class stepDefinitions extends BaseClass  {
         driver.switchTo().defaultContent();
         Thread.sleep(3000);
         driver.switchTo().frame("contentIFrame1");
-        WebDriverWait wait = new WebDriverWait(driver,100);
+        WebDriverWait wait = new WebDriverWait(driver, 200);
         Thread.sleep(3000);
-        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='"+Status+"']"))).getText();
-        Assert.assertEquals(Status,text);
+        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + Status + "']"))).getText();
+        Assert.assertEquals(Status, text);
         Thread.sleep(2000);
     }
+
     @And("^wait for plan to load \"([^\"]*)\"$")
     public void wait_for_duplicate_check(String strArg1) throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(driver, 200);
         WebElement frame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
         driver.switchTo().frame(frame);
         WebElement DebtCaseSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + strArg1 + "']")));
@@ -442,15 +441,16 @@ public class stepDefinitions extends BaseClass  {
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[1]/div/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[2]/td[2]/a")).click();
 
 
-
         WebElement okButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-taxtype-verification/div/div/form/div[2]/div/div/button[1]"));
         okButton.click();
     }
+
     @When("^user enters Physical Address Visited \"([^\"]*)\"$")
     public void user_enters_physical_address_visited_something(String strArg1) throws Throwable {
         WebElement address = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[1]/div/div/div/tb-input-text-area/div/div[2]/div/textarea"));
         address.sendKeys(strArg1);
     }
+
     @And("^enters Person Contacted \"([^\"]*)\" Relationship \"([^\"]*)\" Name of Liquidator \"([^\"]*)\" Status of Business Asset \"([^\"]*)\" and Mean of Survival \"([^\"]*)\"$")
     public void enters_person_contacted_something_relationship_something_name_of_liquidator_something_status_of_business_asset_something_and_mean_of_survival_something(String strArg1, String strArg2, String strArg3, String strArg4, String strArg5) throws Throwable {
         WebElement personContacted = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-verification/div/div/form/div[2]/div/div/tb-input-text[1]/div/div[2]/div/input"));
@@ -491,7 +491,7 @@ public class stepDefinitions extends BaseClass  {
         WebElement debtInput = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-png-input-number/div/div[2]/div/span/input"));
         debtInput.sendKeys(strArg1);
 
-        WebElement periodDropdown= ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/label")));
+        WebElement periodDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/label")));
         periodDropdown.click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-tax-debt/div/div/form/div/div[1]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]/span")).click();
@@ -502,7 +502,7 @@ public class stepDefinitions extends BaseClass  {
 
     @When("^user enters Debt Write-Off Reason")
     public void user_enters_debt_writeoff_reason() throws Throwable {
-        WebElement reasonDropdown= ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[2]/div/div[2]/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
+        WebElement reasonDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[2]/div/div[2]/tb-dropdown/div/div[2]/div/p-dropdown/div/label")));
         reasonDropdown.click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-debt-write-off/div/form/div[2]/div/div[2]/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]/span")).click();
@@ -532,11 +532,13 @@ public class stepDefinitions extends BaseClass  {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-appointment-agent/div/form/div[1]/div[2]/div/div/div[1]/button[1]"));
         addButton.click();
     }
+
     @When("^user clicks add Asset Summary Personal Property$")
     public void user_clicks_add_asset_summary_personal_property() throws Throwable {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[4]/div/div/app-asset-summary/div/div/button[1]"));
         addButton.click();
     }
+
     @When("^user clicks add Asset Summary Real Property$")
     public void user_clicks_add_asset_summary_real_property() throws Throwable {
         WebElement addButton = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-lien-imposition/div/form/div[1]/div[3]/div/div/app-asset-summary/div/div/button[1]"));
@@ -554,12 +556,12 @@ public class stepDefinitions extends BaseClass  {
         WebElement enforcementAction = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[2]/div/div/tb-dropdown[1]/div/div[2]/div/p-dropdown/div/label"));
         enforcementAction.click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//li[span='"+strArg1+"']")).click();
+        driver.findElement(By.xpath("//li[span='" + strArg1 + "']")).click();
 
         WebElement Reason = driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-enforcement-process/div/div/form/div[2]/div/div/tb-dropdown[2]/div/div[2]/div/p-dropdown/div/label"));
         Reason.click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//li[span='"+strArg2+"']")).click();
+        driver.findElement(By.xpath("//li[span='" + strArg2 + "']")).click();
 
     }
 
@@ -691,13 +693,10 @@ public class stepDefinitions extends BaseClass  {
         driver.switchTo().frame(loadFrame);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + strArg1 +"']"))).getText();
-        if(text.contains(strArg1))
-        {
-            System.out.println("Text Verified and"+strArg1);
-        }
-        else
-        {
+        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + strArg1 + "']"))).getText();
+        if (text.contains(strArg1)) {
+            System.out.println("Text Verified and" + strArg1);
+        } else {
             System.out.println("Text Not Verfied and failed");
         }
         Thread.sleep(2000);
@@ -705,8 +704,8 @@ public class stepDefinitions extends BaseClass  {
 
     @And("^Select Approval outcome value to Approve \"([^\"]*)\"$")
     public void select_approval_outcome_value_to_approve_something(String strArg1) throws Throwable {
-        String approvalId = "header_process_tbg_"+strArg1+"approval";
-        WebElement  dropDown=driver.findElement(By.id(approvalId));
+        String approvalId = "header_process_tbg_" + strArg1 + "approval";
+        WebElement dropDown = driver.findElement(By.id(approvalId));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropDown.click();
         Actions action = new Actions(driver);
@@ -716,8 +715,8 @@ public class stepDefinitions extends BaseClass  {
 
     @And("^Select Reject outcome dropdown value to Approve \"([^\"]*)\"$")
     public void select_reject_outcome_dropdown_value_to_approve_something(String strArg1) throws Throwable {
-        String approvalId = "header_process_tbg_"+strArg1+"approval";
-        WebElement  dropDown=driver.findElement(By.id(approvalId));
+        String approvalId = "header_process_tbg_" + strArg1 + "approval";
+        WebElement dropDown = driver.findElement(By.id(approvalId));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropDown.click();
         Actions action = new Actions(driver);
@@ -740,15 +739,14 @@ public class stepDefinitions extends BaseClass  {
     @Then("^Enter Outcome Reason$")
     public void enter_Outcome_Reason() throws Throwable {
         Thread.sleep(2000);
-        WebElement specificframe = (driver.findElement(By.id(Pro.getProperty("OutComeReason_Frame_ID"))));
+        WebElement specificframe = (driver.findElement(By.id("WebResource_DebtManagementRejectionDataReferenceResource")));
         driver.switchTo().frame(specificframe);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.id("viewoptionReject")).click();
+        driver.findElement(By.id("viewoption")).click();
         WebDriverWait ReasonValue = new WebDriverWait(driver, 60);
-        ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"statuscode_i_reject\"]/option[2]"))).click();
+        ReasonValue.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"statuscode_i\"]/option[2]"))).click();
 
     }
-
 
 
     @Then("^Click on Save button$")
@@ -806,12 +804,12 @@ public class stepDefinitions extends BaseClass  {
         switchToFrameBackoffice();
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:accountNumber"))).sendKeys(tin);
         driver.findElement(By.id("SearchForm:j_idt21")).click();
-        
+
     }
 
     @Then("Select taxtype under outstanding debt {string}")
     public void selectTaxtypeUnderOutstandingDebt(String taxtype) throws InterruptedException {
-        Thread.sleep(10000);
+        Thread.sleep(12000);
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"InstalmentAgreement:TaxType\"]/div[3]"))).click();
         Thread.sleep(1500);
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + taxtype + "')]"))).click();
@@ -834,7 +832,7 @@ public class stepDefinitions extends BaseClass  {
     @Then("Select period and year under outstanding debts {string}")
     public void selectPeriodAndYearUnderOutstandingDebts(String period) throws InterruptedException {
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"OutstandingDebt:PeriodYear\"]/div[3]"))).click();
-        Thread.sleep(1500);
+        Thread.sleep(2500);
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + period + "')]"))).click();
         Thread.sleep(1500);
     }
@@ -891,12 +889,13 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("Enter notes for agreement")
     public void enterNotesForAgreement() {
-         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Notes"))).sendKeys("Notes");
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Notes"))).sendKeys("Notes");
     }
 
     @Then("Click save to submit installment agreement")
-    public void clickSaveToSubmitInstallmentAgreement() {
-         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Save"))).click();
+    public void clickSaveToSubmitInstallmentAgreement() throws InterruptedException {
+        Thread.sleep(3000);
+        ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:Save"))).click();
     }
 
 
@@ -910,8 +909,8 @@ public class stepDefinitions extends BaseClass  {
         //Instalment Agreement with reference no IA000000042 has been successfully created
         String FullMessage = twenty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + success + "')]"))).getText();
 
-        ReferenceNumber =FullMessage.substring(39,50);
-        System.out.println("Actual ARN to be used in CRM is " +ReferenceNumber);
+        ReferenceNumber = FullMessage.substring(39, 50);
+        System.out.println("Actual ARN to be used in CRM is " + ReferenceNumber);
     }
 
     @Then("Click add under related documents")
@@ -935,7 +934,7 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("Verify data for return document {string} is populated in table")
     public void verifyDataForReturnDocumentIsPopulatedInTable(String data) {
-        WebElement DataXpath = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'"+data+"')]")));
+        WebElement DataXpath = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + data + "')]")));
         if (DataXpath.isDisplayed()) {
             Assert.assertTrue("No data found in table", true);
         } else {
@@ -970,14 +969,13 @@ public class stepDefinitions extends BaseClass  {
 
     @Then("Verify return document screen is displayed with readonly fields")
     public void verifyReturnDocumentScreenIsDisplayedWithReadonlyFields() {
-        WebDriverWait wait = new WebDriverWait(driver,60);
-        WebElement tinfield = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ReturnsLodgement:id_Tin")));
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebElement tinfield = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("FlexibleFormEntity:TIN")));
         String tin = tinfield.getAttribute("value");
-        if(tin.isEmpty() || tinfield.isEnabled()){
+        if (tin.isEmpty() || tinfield.isEnabled()) {
             Assert.fail("Return document does not contain any data or fields are not readonly");
-        }
-        else{
-            Assert.assertTrue("Return document page contains data",!tin.isEmpty());
+        } else {
+            Assert.assertTrue("Return document page contains data", !tin.isEmpty());
         }
     }
 
@@ -1069,7 +1067,7 @@ public class stepDefinitions extends BaseClass  {
         Thread.sleep(3000);
 
         WebDriverWait wait = new WebDriverWait(driver, 120);
-        WebElement downloadAttach = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='"+text+"']")));
+        WebElement downloadAttach = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + text + "']")));
         Assert.assertTrue(downloadAttach.isDisplayed());
 
         driver.switchTo().defaultContent();
@@ -1103,7 +1101,7 @@ public class stepDefinitions extends BaseClass  {
     @Then("^Debt installment status should be \"([^\"]*)\"$")
     public void Verify_status_from_CRM(String Status) throws Throwable {
 
-        WebDriverWait wait = new WebDriverWait(driver,200);
+        WebDriverWait wait = new WebDriverWait(driver, 200);
         WebElement statusLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'" + Status + "')]")));
 
         if (statusLabel.isDisplayed()) {
@@ -1139,7 +1137,7 @@ public class stepDefinitions extends BaseClass  {
     }
 
     @Then("Enter cancellation notes {string}")
-    public void enterCancellationNotes(String notes)throws InterruptedException {
+    public void enterCancellationNotes(String notes) throws InterruptedException {
         Thread.sleep(1000);
         ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:CancellationNotes"))).sendKeys(notes);
     }
@@ -1158,13 +1156,13 @@ public class stepDefinitions extends BaseClass  {
     public void user_is_navigated_back_to_homepage_something(String url) throws Throwable {
         Thread.sleep(4000);
         String URL = driver.getCurrentUrl();
-        Assert.assertEquals(url,URL );
+        Assert.assertEquals(url, URL);
     }
 
     @Then("Verify view field has correct data {string}")
     public void verifyViewFieldHasCorrectData(String number) {
         String current = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("InstalmentAgreement:InstalmentAgreementNumber"))).getAttribute("value");
-        Assert.assertTrue("Field has correct data",current.equals(number));
+        Assert.assertTrue("Field has correct data", current.equals(number));
 
     }
 
@@ -1276,19 +1274,19 @@ public class stepDefinitions extends BaseClass  {
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", createCaseTitle);
         Thread.sleep(5000);
-        Assert.assertEquals("CREATE DEBT MANAGEMENT CASE",createCaseTitle.getText());
+        Assert.assertEquals("CREATE DEBT MANAGEMENT CASE", createCaseTitle.getText());
     }
 
     @Then("^Find Payment To Dishonour page is displayed$")
     public void find_payment_to_dishonour_page_is_displayed() throws Throwable {
         WebElement dishonourTitle = fifty.until(ExpectedConditions.visibilityOfElementLocated(By.id("SearchForm:directorHeader")));
-        Assert.assertEquals("Find Payment To Dishonour",dishonourTitle.getText());
+        Assert.assertEquals("Find Payment To Dishonour", dishonourTitle.getText());
     }
 
     @Then("^Dishonoured Payment page is displayed$")
     public void dishonoured_payment_page_is_displayed() throws Throwable {
         WebElement dishonourTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("dishonourPayment:PageTitleLabel")));
-        Assert.assertEquals("Dishonoured Payment",dishonourTitle.getText());
+        Assert.assertEquals("Dishonoured Payment", dishonourTitle.getText());
     }
 
     @When("^the user enters taxtype \"([^\"]*)\" and value of debt \"([^\"]*)\" return tpe and period \"([^\"]*)\"$")
@@ -1304,10 +1302,10 @@ public class stepDefinitions extends BaseClass  {
         WebElement taxTypeDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"DebtCaseTaxType:TaxType\"]/div[3]")));
         taxTypeDropdown.click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//li[@data-label='"+strArg1+"']")).click();
+        driver.findElement(By.xpath("//li[@data-label='" + strArg1 + "']")).click();
 
         Thread.sleep(8000);
-        WebElement returnTypedropdown= driver.findElement(By.xpath("//*[@id=\"DebtCaseTaxType:ReturnType\"]/div[3]"));
+        WebElement returnTypedropdown = driver.findElement(By.xpath("//*[@id=\"DebtCaseTaxType:ReturnType\"]/div[3]"));
         returnTypedropdown.click();
         Thread.sleep(2000);
         driver.findElement(By.id("DebtCaseTaxType:ReturnType_1")).click();
@@ -1318,11 +1316,10 @@ public class stepDefinitions extends BaseClass  {
 
 
         Thread.sleep(8000);
-        WebElement periodDropdown= ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"DebtCaseTaxType:PeriodValue\"]/div[3]")));
+        WebElement periodDropdown = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"DebtCaseTaxType:PeriodValue\"]/div[3]")));
         periodDropdown.click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//li[@data-label='"+strArg3+"']")).click();
-
+        driver.findElement(By.xpath("//li[@data-label='" + strArg3 + "']")).click();
 
 
         WebElement okButton = driver.findElement(By.id("DebtCaseTaxType:Ok"));
@@ -1362,7 +1359,7 @@ public class stepDefinitions extends BaseClass  {
         WebElement reasonDropdown = driver.findElement(By.xpath("//*[@id=\"dishonourPayment:Reason\"]/div[3]"));
         reasonDropdown.click();
         Thread.sleep(3000);
-        driver.findElement(By.xpath("//li[@data-label='"+strArg1+"']")).click();
+        driver.findElement(By.xpath("//li[@data-label='" + strArg1 + "']")).click();
 
         WebElement saveButton = driver.findElement(By.xpath("//button[@type='submit' and span='Save']"));
         saveButton.click();
@@ -1400,6 +1397,7 @@ public class stepDefinitions extends BaseClass  {
             System.out.println("Text Not Verified and failed");
         }
     }
+
     @When("^the user leaves details blank and clicks submit$")
     public void the_user_leaves_details_blank_and_clicks_submit() throws Throwable {
         WebElement submitButton = driver.findElement(By.xpath("//button[@type='submit' and span='Submit']"));
@@ -1411,11 +1409,11 @@ public class stepDefinitions extends BaseClass  {
         WebElement caseTitle = ten.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:CaseTitle")));
         caseTitle.sendKeys(strArg1);
 
-        WebElement officeDropdown=driver.findElement(By.xpath("//*[@id=\"DebtManagementCase:CaseOffice\"]/div[3]"));
+        WebElement officeDropdown = driver.findElement(By.xpath("//*[@id=\"DebtManagementCase:CaseOffice\"]/div[3]"));
         officeDropdown.click();
         Thread.sleep(4000);
 //        WebElement taxType=driver.findElement(By.xpath("//li[@data-label='"+strArg2+"']"));
-        WebElement taxType=driver.findElement(By.id("DebtManagementCase:CaseOffice_1"));
+        WebElement taxType = driver.findElement(By.id("DebtManagementCase:CaseOffice_1"));
         taxType.click();
 
         WebElement submitButton = driver.findElement(By.xpath("//button[@type='submit' and span='Submit']"));

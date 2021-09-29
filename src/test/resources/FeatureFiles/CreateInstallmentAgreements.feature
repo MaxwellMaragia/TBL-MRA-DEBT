@@ -6,12 +6,12 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
   @SUC:08-03 @SUC:08-04 @UAT_M8-08-03-01 @UAT_M8-08-03-02 @UAT_M8-08-03-06 @UAT_M8-08-04-01 @UAT_M8-08-04-02 @backoffice
   Scenario: UAT_M8-08-03-02-Verify the process of add related documents-Verify the process of installment agreement-Organization
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "C0022970"
+    Then Find taxpayer using tin "V0023145"
     Then Switch to default
-    Then Select taxtype under outstanding debt "PAYE"
+    Then Select taxtype under outstanding debt "Company Income Tax"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
-    Then Select return type under outstanding debts "PAYE Return"
+    Then Select return type under outstanding debts "Company Income Tax(CIT) Return"
     Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
@@ -25,9 +25,9 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     ##adding additional documents
     Then Click add under related documents
     Then Switch to backoffice frame
-    Then Select related document type as "PAYE Tax Return"
+    Then Select related document type as "Company Income Tax(CIT) Return"
     Then Click search to search for document
-    Then Verify data for return document "PAYE Tax Return" is populated in table
+    Then Verify data for return document "Company Income Tax(CIT) Return" is populated in table
     Then Click calculate to calculate installment plan
     Then Verify calculation data is populated in table
     Then Click save to submit installment agreement
@@ -47,12 +47,12 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
   @SUC:08-03 @UAT_M8-08-03-03 @backoffice
   Scenario: UAT_M8-08-03-03-Verify the process of installment agreement-Individual
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "C0022970"
+    Then Find taxpayer using tin "C0023193"
     Then Switch to default
-    Then Select taxtype under outstanding debt "PAYE"
+    Then Select taxtype under outstanding debt "Personal Income Tax"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
-    Then Select return type under outstanding debts "PAYE Return"
+    Then Select return type under outstanding debts "Personal Income Tax(PIT) Return"
     Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
@@ -66,9 +66,9 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     ##adding additional documents
     Then Click add under related documents
     Then Switch to backoffice frame
-    Then Select related document type as "PAYE Tax Return"
+    Then Select related document type as "Personal Income Tax(PIT) Return"
     Then Click search to search for document
-    Then Verify data for return document "PAYE Tax Return" is populated in table
+    Then Verify data for return document "Personal Income Tax(PIT) Return" is populated in table
     Then Click calculate to calculate installment plan
     Then Verify calculation data is populated in table
     Then Click save to submit installment agreement
@@ -88,12 +88,12 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
   @SUC:08-04 @UAT_M8-08-04-03 @backoffice
   Scenario: UAT_M8-08-03-03-Verify the process of Reject installment agreement
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "C0022970"
+    Then Find taxpayer using tin "C0023193"
     Then Switch to default
-    Then Select taxtype under outstanding debt "PAYE"
+    Then Select taxtype under outstanding debt "Personal Income Tax"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
-    Then Select return type under outstanding debts "PAYE Return"
+    Then Select return type under outstanding debts "Personal Income Tax(PIT) Return"
     Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
@@ -107,9 +107,9 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     ##adding additional documents
     Then Click add under related documents
     Then Switch to backoffice frame
-    Then Select related document type as "PAYE Tax Return"
+    Then Select related document type as "Personal Income Tax(PIT) Return"
     Then Click search to search for document
-    Then Verify data for return document "PAYE Tax Return" is populated in table
+    Then Verify data for return document "Personal Income Tax(PIT) Return" is populated in table
     Then Click calculate to calculate installment plan
     Then Verify calculation data is populated in table
     Then Click save to submit installment agreement
@@ -132,12 +132,12 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
   @SUC:08-03 @UAT_M8-08-03-04 @backoffice
   Scenario: UAT_M8-08-03-04-Verify the process of validation errors
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "C0022970"
+    Then Find taxpayer using tin "C0023193"
     Then Switch to default
-    Then Select taxtype under outstanding debt "PAYE"
+    Then Select taxtype under outstanding debt "Personal Income Tax"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
-    Then Select return type under outstanding debts "PAYE Return"
+    Then Select return type under outstanding debts "Personal Income Tax(PIT) Return"
     Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
@@ -159,12 +159,12 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
   @SUC:08-03 @UAT_M8-08-03-07 @backoffice
   Scenario: UAT_M8-08-03-07-Verify the process of view related documents
     And Click on debt management > Installment agreements > Create installment agreement
-    Then Find taxpayer using tin "C0022970"
+    Then Find taxpayer using tin "C0023193"
     Then Switch to default
-    Then Select taxtype under outstanding debt "PAYE"
+    Then Select taxtype under outstanding debt "Personal Income Tax"
     Then Click add under outstanding debts
     Then Switch to backoffice frame
-    Then Select return type under outstanding debts "PAYE Return"
+    Then Select return type under outstanding debts "Personal Income Tax(PIT) Return"
     Then Select period and year under outstanding debts "1/2021"
     Then Enter value of debt as "2000"
     Then Click ok under installment agreements
@@ -178,9 +178,9 @@ Feature: [SUC:08-03]-Create Installment Agreements, [SUC:08-04]-Approve Installm
     ##adding additional documents
     Then Click add under related documents
     Then Switch to backoffice frame
-    Then Select related document type as "PAYE Tax Return"
+    Then Select related document type as "Personal Income Tax(PIT) Return"
     Then Click search to search for document
-    Then Verify data for return document "PAYE Tax Return" is populated in table
+    Then Verify data for return document "Personal Income Tax(PIT) Return" is populated in table
     Then Click return document table row
     Then Click view to view return document
     #depending on taxtype check if it goes to lodge or file

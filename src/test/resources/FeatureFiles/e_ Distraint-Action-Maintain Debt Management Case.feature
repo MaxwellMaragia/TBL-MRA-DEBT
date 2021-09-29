@@ -153,7 +153,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame1
     And Select Approval outcome value to Approve "commissionergeneral"
     Then Click on Save button
-    Then Debt status should be "Distraint Action Approved By Commissioner General"
+    Then Debt status should be "Distraint Action Approved"
 #
   @Distraint-Action
   Scenario: UAT_M8_08-02-05-Verify the Process of Escalated Case - Distraint Action -Debt Officer
@@ -170,7 +170,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Distraint Action Approved By Commissioner General"
     And wait for plan to load "Total Tax Debt"
     Then switch to frame1
-    Then Debt status should be "Distraint Action Approved By Commissioner General"
+    Then Debt status should be "Distraint Action Approved"
 
 
 

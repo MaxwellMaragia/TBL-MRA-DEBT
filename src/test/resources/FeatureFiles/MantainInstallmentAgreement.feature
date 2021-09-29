@@ -7,7 +7,7 @@ Feature: [SUC:08-06]-Mantain installment agreement
   @SUC:08-06 @UAT_M8-08-06-05 @backoffice
   Scenario: UAT_M8-08-03-05-Verify the process of abandon cancel
     And Click on debt management > Installment agreements > cancel installment agreement
-    Then Search for case using tin "C0022970" and agreement number "IA000000055"
+    Then Search for case using tin "V0023145" and agreement number "IA000000070"
     Then Enter cancellation reason "Breech of Compliance Rules (System compliance default)"
     Then Enter cancellation date
     Then Enter cancellation notes "Invalid"
@@ -17,13 +17,13 @@ Feature: [SUC:08-06]-Mantain installment agreement
   @SUC:08-06 @UAT_M8-08-06-06 @backoffice
   Scenario: UAT_M8-08-03-06-Verify the process of view installment agreement
     And Click on debt management > Installment agreements > view installment agreement
-    Then Search for case using tin "C0022970" and agreement number "IA000000055"
-    Then Verify view field has correct data "IA000000055"
+    Then Search for case using tin "V0023145" and agreement number "IA000000071"
+    Then Verify view field has correct data "IA000000071"
 
   @SUC:08-06 @UAT_M8-08-06-02 @backoffice
   Scenario: UAT_M8-08-03-02-Verify the process of cancel installment agreement
     And Click on debt management > Installment agreements > cancel installment agreement
-    Then Search for case using tin "C0022970" and agreement number "IA000000052"
+    Then Search for case using tin "V0023145" and agreement number "IA000000070"
     Then Enter cancellation reason "Breech of Compliance Rules (System compliance default)"
     Then Enter cancellation date
     Then Enter cancellation notes "Invalid"

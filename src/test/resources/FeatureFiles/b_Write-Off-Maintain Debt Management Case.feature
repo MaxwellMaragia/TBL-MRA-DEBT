@@ -14,12 +14,12 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Click on reference number
     Then Debt status should be "New"
     And wait for plan to load "Total Debt:"
-    When user enters Enforcement Action " " and Reason " "
+#    When user enters Enforcement Action "Debt Write Off" and Reason "Debt Write Off"
     And clicks Submit button
     Then switch to frame1
     Then validation error displayed " This field can not be empty. "
 
-  @Write-Off
+  @Write-Off @boom
   Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -Debt-Officer
     Given Open CRM URL Module as "DebtOfficer1"
     And Close Popup Window
@@ -142,7 +142,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame1
     And Select Approval outcome value to Approve "commissionergeneral"
     Then Click on Save button
-    Then Debt status should be "Write Off Approved By Commissioner General"
+    Then Debt status should be "Write Off Approved"
 
   @debtofficer @Write-Off
   Scenario: UAT_M8_08-02-01-UAT_M8_08-02-02-Verify the Process of Escalated Case - Write-Off -DebtOfficer
@@ -156,10 +156,10 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Write Off Approved By Commissioner General"
+    Then Debt status should be "Write Off Approved"
     And wait for plan to load "Total Debt to be Written Off"
     Then switch to frame1
-    Then Debt status should be "Write Off Approved By Commissioner General"
+    Then Debt status should be "Write Off Approved"
 
 
 

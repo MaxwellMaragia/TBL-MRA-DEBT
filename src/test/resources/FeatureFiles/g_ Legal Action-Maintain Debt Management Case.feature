@@ -119,7 +119,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame1
     And Select Approval outcome value to Approve "commissionergeneral"
     Then Click on Save button
-    Then Debt status should be "Legal Action Approved By Commissioner General"
+    Then Debt status should be "Legal Action Approved"
 
   @Legal-Action
   Scenario: UAT_M8_08-02-07-UAT_M8_08-02-11-Verify the Process of Continue Debt Management Case		 - Legal Action   -Debt Officer
@@ -133,10 +133,10 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And click pick button
     Then switch to frame0
     Then Click on reference number
-    Then Debt status should be "Enforcement Suspension Approved By Commissioner General"
+    Then Debt status should be "Legal Action Approved Approved By Commissioner General"
     And wait for plan to load "Total Tax Debt"
     Then switch to frame1
-    Then Debt status should be "Enforcement Suspension Approved By Commissioner General"
+    Then Debt status should be "Legal Action Approved"
 
 
 

@@ -145,7 +145,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame1
     And Select Approval outcome value to Approve "commissionergeneral"
     Then Click on Save button
-    Then Debt status should be "Agent Approved By Commissioner General"
+    Then Debt status should be "Agent Approved"
 
   @debtofficer @Agent-Appointment
   Scenario: UAT_M8_08-02-03-UAT_M8_08-02-16-UAT_M8_08-02-17-UAT_M8_08-02-18-Verify the Process of Escalated Case - Agent Appointment -Debt Officer
@@ -162,7 +162,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then Debt status should be "Agent Approved By Commissioner General"
     And wait for plan to load "Appointment of Agent Number"
     Then switch to frame1
-    Then Debt status should be "Agent Approved By Commissioner General"
+    Then Debt status should be "Agent Approved"
 
 
 

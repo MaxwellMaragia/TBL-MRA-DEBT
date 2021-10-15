@@ -206,8 +206,8 @@ public class stepDefinitions extends BaseClass {
 
     @And("^Click on Case management dropdown$")
     public void click_on_case_management_dropdown() throws Throwable {
-        Thread.sleep(2000);
-        twenty.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='TabCS']/a/span"))).click();
+        Thread.sleep(4000);
+        thirty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"TabCS\"]/a"))).click();
 
     }
 
@@ -244,16 +244,16 @@ public class stepDefinitions extends BaseClass {
 
     @And("^picks the audit case$")
     public void picks_the_audit_case() throws Throwable {
+        Thread.sleep(4000);
         WebElement pickCheckBox = driver.findElement(By.xpath("//input[@type='checkbox']"));
-
         Actions actions = new Actions(driver);
         actions.doubleClick(pickCheckBox).perform();
-
         driver.switchTo().defaultContent();
     }
 
     @And("^pick the debt case$")
     public void pick_the_debt_case() throws Throwable {
+        Thread.sleep(4000);
         WebElement pickButton = driver.findElement(By.xpath("//*[@id=\"queueitem|NoRelationship|HomePageGrid|tbg.queueitem.HomepageGrid.Pick\"]/span"));
         Actions actions = new Actions(driver);
         actions.doubleClick(pickButton).perform();
@@ -261,7 +261,7 @@ public class stepDefinitions extends BaseClass {
 
     @And("^click pick button$")
     public void click_pick_button() throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 40);
         WebElement assignDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("moreCommands")));
         assignDropdown.click();
 
@@ -293,13 +293,13 @@ public class stepDefinitions extends BaseClass {
 
     @And("^wait for plan to load \"([^\"]*)\"$")
     public void wait_for_duplicate_check(String strArg1) throws Throwable {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+
         driver.switchTo().defaultContent();
         Thread.sleep(3000);
         driver.switchTo().frame("contentIFrame1");
-        WebElement frame = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
+        WebElement frame = onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
         driver.switchTo().frame(frame);
-        WebElement DebtCaseSummary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + strArg1 + "']")));
+        WebElement DebtCaseSummary = onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + strArg1 + "']")));
         Assert.assertTrue(DebtCaseSummary.isDisplayed());
     }
 
@@ -1262,7 +1262,7 @@ public class stepDefinitions extends BaseClass {
     public void click_on_debt_management_create_debt_management_case() throws Throwable {
         driver.findElement(By.xpath("//a[span='Debt Management']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[15]/ul/li[2]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"MenuForm:j_idt29\"]/ul/li[16]/ul/li[2]/a")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("//*[@id=\"sub1\"]/ul/li/a")).click();
     }
@@ -1417,9 +1417,10 @@ public class stepDefinitions extends BaseClass {
     @When("^User enters Case Title \"([^\"]*)\" and Office \"([^\"]*)\"$")
     public void user_enters_case_title_something_and_office_something(String strArg1, String strArg2) throws Throwable {
         switchToDefault();
+        Thread.sleep(3000);
         WebElement caseTitle = twenty.until(ExpectedConditions.visibilityOfElementLocated(By.id("DebtManagementCase:CaseTitle")));
         caseTitle.sendKeys(strArg1);
-
+        Thread.sleep(3000);
         WebElement officeDropdown = driver.findElement(By.xpath("//*[@id=\"DebtManagementCase:CaseOffice\"]/div[3]"));
         officeDropdown.click();
         Thread.sleep(4000);

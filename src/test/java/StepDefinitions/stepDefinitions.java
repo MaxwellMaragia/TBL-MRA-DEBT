@@ -1319,8 +1319,8 @@ public class stepDefinitions extends BaseClass {
         returnTypedropdown.click();
         Thread.sleep(2000);
         driver.findElement(By.id("DebtCaseTaxType:ReturnType_1")).click();
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        actions.sendKeys(Keys.TAB).perform();
+        Thread.sleep(3000);
         WebElement debtInput = driver.findElement(By.id("DebtCaseTaxType:ValueOfDebt_input"));
         debtInput.sendKeys(strArg2);
 
@@ -1331,7 +1331,6 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(2000);
         driver.findElement(By.xpath("//li[@data-label='" + strArg3 + "']")).click();
         actions.sendKeys(Keys.TAB).perform();
-
         WebElement okButton = driver.findElement(By.id("DebtCaseTaxType:Ok"));
         okButton.click();
     }

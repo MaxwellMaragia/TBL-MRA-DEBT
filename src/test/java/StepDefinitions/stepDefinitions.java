@@ -206,9 +206,10 @@ public class stepDefinitions extends BaseClass {
 
     @And("^Click on Case management dropdown$")
     public void click_on_case_management_dropdown() throws Throwable {
-        Thread.sleep(4000);
-        thirty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"TabCS\"]/a"))).click();
-
+        Thread.sleep(7000);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"TabCS\"]/a"))).isDisplayed();
+        driver.findElement(By.xpath("//*[@id=\"TabCS\"]/a")).click();
     }
 
     @And("^click on Queues$")
@@ -286,9 +287,7 @@ public class stepDefinitions extends BaseClass {
         driver.switchTo().frame("contentIFrame1");
         WebDriverWait wait = new WebDriverWait(driver, 60);
         Thread.sleep(3000);
-        String text = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + Status + "']"))).getText();
-        Assert.assertEquals(Status, text);
-        Thread.sleep(2000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'"+Status+"')]"))).isDisplayed();
     }
 
     @And("^wait for plan to load \"([^\"]*)\"$")
@@ -299,7 +298,7 @@ public class stepDefinitions extends BaseClass {
         driver.switchTo().frame("contentIFrame1");
         WebElement frame = onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.id("WebResource_DebtManagementApplicationAngular")));
         driver.switchTo().frame(frame);
-        WebElement DebtCaseSummary = onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='" + strArg1 + "']")));
+        WebElement DebtCaseSummary = onehundred.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[contains(text(),'"+strArg1+"')]")));
         Assert.assertTrue(DebtCaseSummary.isDisplayed());
     }
 
@@ -942,7 +941,7 @@ public class stepDefinitions extends BaseClass {
 
     @Then("Verify data for return document {string} is populated in table")
     public void verifyDataForReturnDocumentIsPopulatedInTable(String data) {
-        WebElement DataXpath = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + data + "')]")));
+        WebElement DataXpath = thirty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[contains(text(),'" + data + "')]")));
         if (DataXpath.isDisplayed()) {
             Assert.assertTrue("No data found in table", true);
         } else {
@@ -1314,10 +1313,10 @@ public class stepDefinitions extends BaseClass {
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.TAB).perform();
 
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         WebElement returnTypedropdown = driver.findElement(By.xpath("//*[@id=\"DebtCaseTaxType:ReturnType\"]/div[3]"));
         returnTypedropdown.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         driver.findElement(By.id("DebtCaseTaxType:ReturnType_1")).click();
         actions.sendKeys(Keys.TAB).perform();
         Thread.sleep(3000);

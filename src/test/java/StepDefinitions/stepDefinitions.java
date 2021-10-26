@@ -206,10 +206,12 @@ public class stepDefinitions extends BaseClass {
 
     @And("^Click on Case management dropdown$")
     public void click_on_case_management_dropdown() throws Throwable {
-        Thread.sleep(7000);
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"TabCS\"]/a"))).isDisplayed();
-        driver.findElement(By.xpath("//*[@id=\"TabCS\"]/a")).click();
+        switch_to_frame0();
+        thirty.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Active Cases in Progress Overview')]"))).isDisplayed();
+        switchToDefault();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"TabCS\"]/a/span")).click();
+        Thread.sleep(1000);
     }
 
     @And("^click on Queues$")
@@ -248,7 +250,7 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(4000);
         WebElement pickCheckBox = driver.findElement(By.xpath("//input[@type='checkbox']"));
         Actions actions = new Actions(driver);
-        actions.doubleClick(pickCheckBox).perform();
+        actions.click(pickCheckBox).perform();
         driver.switchTo().defaultContent();
     }
 
@@ -257,7 +259,7 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(4000);
         WebElement pickButton = driver.findElement(By.xpath("//*[@id=\"queueitem|NoRelationship|HomePageGrid|tbg.queueitem.HomepageGrid.Pick\"]/span"));
         Actions actions = new Actions(driver);
-        actions.doubleClick(pickButton).perform();
+        actions.click(pickButton).perform();
     }
 
     @And("^click pick button$")
@@ -363,11 +365,11 @@ public class stepDefinitions extends BaseClass {
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
 
         WebElement dateofSeizure = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-date-picker/div/div[2]/div/p-calendar/span")));
-        dateofSeizure.click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/div/div/div[2]/table/tbody/tr[1]/td[5]/a")).click();
-
-        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[2]/div/button[1]")).click();
+      //  dateofSeizure.click();
+        Thread.sleep(3000);
+        dateofSeizure.sendKeys("26/10/2021");
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.TAB).perform();
     }
 
     @When("^user enters Asset Summary Real Property$")

@@ -28,7 +28,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     Then switch to frame0
     And enters Debt reference number in search results
     And picks the audit case
-#    And click pick button
+#   And click pick button
     Then switch to frame0
     Then Click on reference number
     Then Debt status should be "New"

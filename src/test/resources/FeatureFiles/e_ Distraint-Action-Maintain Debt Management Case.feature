@@ -18,7 +18,7 @@ Feature: [SUC:08-02] Maintain Debt Management Case
     And clicks Submit button
     Then Debt status should be "Distraint Action"
     And wait for plan to load "Total Tax Debt"
-    When user clicks add Asset Summary Personal Property
+#    When user clicks add Asset Summary Personal Property
     When user clicks add Asset Seized
     Then Debt status should be "Distraint Action"
     And wait for plan to load "Asset Name"

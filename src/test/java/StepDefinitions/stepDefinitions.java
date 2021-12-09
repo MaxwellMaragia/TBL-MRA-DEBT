@@ -69,7 +69,7 @@ public class stepDefinitions extends BaseClass {
     public WebDriverWait ninetyfive;
     public WebDriverWait onehundred;
     public WebDriverWait twohundred;
-
+    public JavascriptExecutor jse;
 
     public static sharedatastep sharedata;
     public String ReferenceNumber = "IA000000046";
@@ -86,6 +86,7 @@ public class stepDefinitions extends BaseClass {
         FileInputStream fls = new FileInputStream("src\\test\\resources\\global.properties");
         Pro.load(fls);
         driver = BaseClass.getDriver();
+        jse = (JavascriptExecutor) driver;
         five = new WebDriverWait(driver, 5);
         ten = new WebDriverWait(driver, 10);
         fifteen = new WebDriverWait(driver, 15);
@@ -364,12 +365,16 @@ public class stepDefinitions extends BaseClass {
         Thread.sleep(2000);
         driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-dropdown/div/div[2]/div/p-dropdown/div/div[4]/div[2]/ul/li[2]")).click();
 
-        WebElement dateofSeizure = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-date-picker/div/div[2]/div/p-calendar/span")));
+        WebElement dateofSeizure = ten.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[1]/div/div/tb-date-picker/div/div[2]/div/p-calendar/span/input")));
       //  dateofSeizure.click();
-        Thread.sleep(3000);
+        Thread.sleep(2000);
+        jse.executeScript("arguments[0].scrollIntoView(true);", dateofSeizure);
         dateofSeizure.sendKeys("26/10/2021");
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.TAB).perform();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("/html/body/trips-app/div/app-debt-management/app-add-update-asset-seized/div/div/form/div[2]/div/button[1]")).click();
+
     }
 
     @When("^user enters Asset Summary Real Property$")
